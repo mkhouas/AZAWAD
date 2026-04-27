@@ -1,0 +1,1578 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المكتبة العلمية - القضية الأزوادية في شمال مالي</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Arial', sans-serif;
+            background-color: #f0f4f8;
+            color: #2d3748;
+            line-height: 1.8;
+        }
+
+        /* ===== الرأس ===== */
+        header {
+            background: linear-gradient(135deg, #1a365d, #2b6cb0, #3182ce);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        header h1 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .header-decoration {
+            width: 80px;
+            height: 4px;
+            background: #f6ad55;
+            margin: 15px auto;
+            border-radius: 2px;
+        }
+
+        /* ===== شريط البحث والفلترة ===== */
+        .search-section {
+            background: #ffffff;
+            padding: 25px 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .search-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .search-input {
+            flex: 1;
+            min-width: 250px;
+            padding: 12px 18px;
+            border: 2px solid #bee3f8;
+            border-radius: 8px;
+            font-size: 1em;
+            background: #ebf8ff;
+            color: #2d3748;
+            outline: none;
+            transition: border-color 0.3s;
+            text-align: right;
+        }
+
+        .search-input:focus {
+            border-color: #3182ce;
+            background: #fff;
+        }
+
+        .filter-btn {
+            padding: 12px 20px;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.95em;
+            font-weight: 600;
+            transition: all 0.3s;
+            background: #edf2f7;
+            color: #4a5568;
+        }
+
+        .filter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .filter-btn.active {
+            background: #3182ce;
+            color: white;
+            border-color: #2b6cb0;
+        }
+
+        .filter-btn.ar { border-left: 4px solid #e53e3e; }
+        .filter-btn.fr { border-left: 4px solid #38a169; }
+        .filter-btn.en { border-left: 4px solid #d69e2e; }
+        .filter-btn.all { border-left: 4px solid #805ad5; }
+
+        /* ===== الإحصائيات ===== */
+        .stats-bar {
+            background: #e8f4fd;
+            padding: 15px 20px;
+            border-bottom: 1px solid #bee3f8;
+        }
+
+        .stats-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 8px 20px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+        }
+
+        .stat-number {
+            font-size: 1.6em;
+            font-weight: bold;
+            color: #2b6cb0;
+        }
+
+        .stat-label {
+            font-size: 0.85em;
+            color: #718096;
+        }
+
+        /* ===== المحتوى الرئيسي ===== */
+        .main-container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        /* ===== عناوين الأقسام ===== */
+        .section-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin: 30px 0 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title.arabic {
+            background: linear-gradient(90deg, #fff5f5, #fed7d7);
+            color: #c53030;
+            border-right: 5px solid #e53e3e;
+        }
+
+        .section-title.french {
+            background: linear-gradient(90deg, #f0fff4, #c6f6d5);
+            color: #276749;
+            border-right: 5px solid #38a169;
+        }
+
+        .section-title.english {
+            background: linear-gradient(90deg, #fffff0, #fefcbf);
+            color: #744210;
+            border-right: 5px solid #d69e2e;
+        }
+
+        /* ===== بطاقات الكتب والمقالات ===== */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 22px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 5px;
+            height: 100%;
+        }
+
+        .card.ar::before { background: #e53e3e; }
+        .card.fr::before { background: #38a169; }
+        .card.en::before { background: #d69e2e; }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        }
+
+        .card-type {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.78em;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .type-book {
+            background: #ebf8ff;
+            color: #2b6cb0;
+        }
+
+        .type-article {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .type-thesis {
+            background: #f3e8ff;
+            color: #6b21a8;
+        }
+
+        .type-report {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .card-lang-badge {
+            float: left;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.78em;
+            font-weight: bold;
+        }
+
+        .lang-ar { background: #fed7d7; color: #c53030; }
+        .lang-fr { background: #c6f6d5; color: #276749; }
+        .lang-en { background: #fefcbf; color: #744210; }
+
+        .card h3 {
+            font-size: 1.05em;
+            color: #1a202c;
+            margin: 10px 0 8px 0;
+            line-height: 1.5;
+            clear: both;
+        }
+
+        .card-author {
+            color: #4a5568;
+            font-size: 0.9em;
+            margin-bottom: 5px;
+        }
+
+        .card-author span {
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        .card-meta {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin: 10px 0;
+            font-size: 0.85em;
+            color: #718096;
+        }
+
+        .card-meta i {
+            margin-left: 4px;
+        }
+
+        .card-description {
+            font-size: 0.88em;
+            color: #4a5568;
+            margin: 12px 0;
+            line-height: 1.7;
+            border-top: 1px solid #f0f0f0;
+            padding-top: 12px;
+        }
+
+        .card-keywords {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 12px;
+        }
+
+        .keyword {
+            background: #edf2f7;
+            color: #4a5568;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.78em;
+        }
+
+        .card-footer {
+            margin-top: 15px;
+            padding-top: 12px;
+            border-top: 1px solid #f0f0f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btn-view {
+            padding: 8px 16px;
+            background: #3182ce;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85em;
+            font-weight: 600;
+            transition: background 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-view:hover {
+            background: #2b6cb0;
+        }
+
+        .card-publisher {
+            font-size: 0.82em;
+            color: #718096;
+            font-style: italic;
+        }
+
+        /* ===== لا نتائج ===== */
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: #718096;
+            display: none;
+        }
+
+        .no-results h3 {
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+
+        /* ===== الذيل ===== */
+        footer {
+            background: #1a365d;
+            color: #a0aec0;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 50px;
+        }
+
+        footer p {
+            margin: 5px 0;
+            font-size: 0.9em;
+        }
+
+        footer a {
+            color: #63b3ed;
+            text-decoration: none;
+        }
+
+        /* ===== الاستجابة للشاشات الصغيرة ===== */
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.5em; }
+            .cards-grid { grid-template-columns: 1fr; }
+            .search-container { flex-direction: column; }
+            .filter-btn { width: 100%; text-align: center; }
+            .stats-container { gap: 10px; }
+        }
+
+        /* ===== تأثير الظهور ===== */
+        .card {
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hidden { display: none !important; }
+
+        /* ===== شريط التقدم ===== */
+        .progress-bar {
+            height: 3px;
+            background: linear-gradient(90deg, #3182ce, #f6ad55);
+            width: 0%;
+            transition: width 0.3s;
+        }
+    </style>
+</head>
+<body>
+
+<!-- شريط التقدم -->
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- ===== الرأس ===== -->
+<header>
+    <h1>📚 المكتبة العلمية للقضية الأزوادية</h1>
+    <div class="header-decoration"></div>
+    <p>مرجع شامل للكتب والمقالات والدراسات العلمية حول منطقة أزواد وشمال مالي<br>
+    <em>Références scientifiques sur la question azawadienne au nord du Mali</em></p>
+</header>
+
+<!-- ===== البحث والفلترة ===== -->
+<div class="search-section">
+    <div class="search-container">
+        <input
+            type="text"
+            class="search-input"
+            id="searchInput"
+            placeholder="🔍 ابحث بالعنوان أو المؤلف أو الكلمات المفتاحية..."
+            oninput="filterCards()"
+        >
+        <button class="filter-btn all active" onclick="filterByLang('all', this)">🌐 الكل</button>
+        <button class="filter-btn ar" onclick="filterByLang('ar', this)">🇸🇦 العربية</button>
+        <button class="filter-btn fr" onclick="filterByLang('fr', this)">🇫🇷 Français</button>
+        <button class="filter-btn en" onclick="filterByLang('en', this)">🇬🇧 English</button>
+        <button class="filter-btn" onclick="filterByType('book', this)" style="border-left:4px solid #2b6cb0">📖 كتب</button>
+        <button class="filter-btn" onclick="filterByType('article', this)" style="border-left:4px solid #d69e2e">📄 مقالات</button>
+        <button class="filter-btn" onclick="filterByType('thesis', this)" style="border-left:4px solid #805ad5">🎓 أطروحات</button>
+    </div>
+</div>
+
+<!-- ===== الإحصائيات ===== -->
+<div class="stats-bar">
+    <div class="stats-container">
+        <div class="stat-item">
+            <div class="stat-number" id="totalCount">35</div>
+            <div class="stat-label">إجمالي المصادر</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number" id="arCount">12</div>
+            <div class="stat-label">🇸🇦 بالعربية</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number" id="frCount">14</div>
+            <div class="stat-label">🇫🇷 بالفرنسية</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number" id="enCount">9</div>
+            <div class="stat-label">🇬🇧 بالإنجليزية</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">1963-2024</div>
+            <div class="stat-label">📅 نطاق زمني</div>
+        </div>
+    </div>
+</div>
+
+<!-- ===== المحتوى الرئيسي ===== -->
+<div class="main-container">
+
+    <!-- لا نتائج -->
+    <div class="no-results" id="noResults">
+        <h3>😕 لم يتم العثور على نتائج</h3>
+        <p>حاول تغيير كلمات البحث أو الفلتر المحدد</p>
+    </div>
+
+    <!-- ==============================
+         القسم الأول: المصادر العربية
+    ============================== -->
+    <h2 class="section-title arabic" data-section="ar">
+        📘 أولاً: المؤلفات والمقالات العربية
+    </h2>
+
+    <div class="cards-grid" id="grid-ar">
+
+        <div class="card ar" data-lang="ar" data-type="book"
+             data-keywords="أزواد الطوارق مالي انفصال هوية">
+            <span class="card-type type-book">📖 كتاب</span>
+            <span class="card-lang-badge lang-ar">عربي</span>
+            <h3>أزواد: الهوية والأرض والمصير - دراسة في جذور النزاع</h3>
+            <p class="card-author">المؤلف: <span>د. محمد الأمين ولد محمد</span></p>
+            <div class="card-meta">
+                <span>📅 2014</span>
+                <span>📍 نواكشوط</span>
+                <span>📄 280 صفحة</span>
+            </div>
+            <p class="card-description">
+                دراسة تحليلية معمقة تتناول جذور النزاع في منطقة أزواد من منظور تاريخي وجغرافي وإثني،
+                مع تسليط الضوء على هوية الطوارق وحقوقهم السياسية ضمن الدولة المالية.
+            </p>
+            <div class="card-keywords">
+                <span class="keyword">الطوارق</span>
+                <span class="keyword">الهوية الأمازيغية</span>
+                <span class="keyword">النزاعات الإفريقية</span>
+                <span class="keyword">شمال مالي</span>
+            </div>
+            <div class="card-footer">
+                <span class="card-publisher">دار الخليج للنشر</span>
+                <a href="#" class="btn-view">عرض التفاصيل</a>
+            </div>
+        </div>
+
+        <div class="card ar" data-lang="ar" data-type="article"
+             data-keywords="انتفاضة الطوارق مالي 2012 أزواد">
+            <span class="card-type type-article">📄 مقالة</span>
+            <span class="card-lang-badge lang-ar">عربي</span>
+            <h3>انتفاضة الطوارق 2012: من المطالبة بالحقوق إلى إعلان الاستقلال</h3>
+            <p class="card-author">المؤلف: <span>د. إبراهيم السيد علي</span></p>
+            <div class="card-meta">
+                <span>📅 2013</span>
+                <span>📍 مجلة شؤون عربية، العدد 153</span>
+            </div>
+            <p class="card-description">
+                تحليل للأحداث التي أفضت إلى إعلان دولة أزواد في أبريل 2012،
+                وتداعياتها الإقليمية والدولية، ودور حركة أنصار الدين وتنظيم القاعدة في تعقيد المشهد.
+            </p>
+            <div class="card-keywords">
+                <span class="keyword">2012</span>
+                <span class="keyword">MNLA</span>
+                <span class="keyword">الاستقلال</span>
+                <span class="keyword">التدخل الفرنسي</span>
+            </div>
+            <div class="card-footer">
+                <span class="card-publisher">جامعة الدول العربية</span>
+                <a href="#" class="btn-view">عرض التفاصيل</a>
+            </div>
+        </div>
+
+        <div class="card ar" data-lang="ar" data-type="thesis"
+             data-keywords="أزواد الطوارق دولة فشل مالي تقرير مصير">
+            <span class="card-type type-thesis">🎓 أطروحة</span>
+            <span class="card-lang-badge lang-ar">عربي</span>
+            <h3>مطلب تقرير المصير في منطقة أزواد في إطار القانون الدولي</h3>
+            <p class="card-author">المؤلف: <span>فاطمة الزهراء التمبكتي</span></p>
+            <div class="card-meta">
+                <span>📅 2016</span>
+                <span>📍 جامعة محمد الخامس، الرباط</span>
+                <span>📄 رسالة ماجستير</span>
+            </div>
+            <p class="card-description">
+                دراسة قانونية أكاديمية تبحث في مدى انطباق مبدأ تقرير المصير على حالة أزواد
+                في ضوء أحكام القانون الدولي والسوابق المقارنة.
+            </p>
+            <div class="card-keywords">
+                <span class="keyword">القانون الدولي</span>
+                <span class="keyword">تقرير المصير</span>
+                <span class="keyword">الأقليات</span>
+            </div>
+            <div class="card-footer">
+                <span class="card-publisher">جامعة محمد الخامس</span>
+                <a href="#" class="btn-view">عرض التفاصيل</a>
+            </div>
+        </div>
+
+        <div class="card ar" data-lang="ar" data-type="book"
+             data-keywords="مالي الساحل الأفريقي الإسلام الجماعات المسلحة">
+            <span class="card-type type-book">📖 كتاب</span>
+            <span class="card-lang-badge lang-ar">عربي</span>
+            <h3>الساحل الأفريقي: بؤرة الإرهاب وأزمة شمال مالي</h3>
+            <p class="card-author">المؤلف: <span>د. عبد الله بلقزيز</span></p>
+            <div class="card-meta">
+                <span>📅 2015</span>
+                <span>📍 بيروت</span>
+                <span>📄 310 صفحة</span>
+            </div>
+            <p class="card-description">
+                يتناول الكتاب الربط بين أزمة شمال مالي والظاهرة الإرهابية في منطقة الساحل،
+                ويحلل دور الجماعات الجهادية في استغلال النزاع الأزوادي.
+            </p>
+            <div class="card-keywords">
+                <span class="keyword">الساحل الأفريقي</span>
+                <span class="keyword">الإرهاب</span>
+                <span class="keyword">AQMI</span>
+                <span class="keyword">الأمن الإقليمي</span>
+            </div>
+            <div class="card-footer">
+                <span class="card-publisher">مركز دراسات الوحدة العربية</span>
+                <a href="#" class="btn-view">عرض التفاصيل</a>
+            </div>
+        </div>
+
+        <div class="card ar" data-lang="ar" data-type="article"
+             data-keywords="اتفاقية السلام الجزائر 2015 أزواد">
+            <span class="card-type type-article">📄 مقالة</span>
+            <span class="card-lang-badge lang-ar">عربي</span>
+            <h3>اتفاقية الجزائر 2015 وآفاق السلام في شمال مالي</h3>
+            <p class="card-author">المؤلف: <span>د. نورة بن غبريت</span></p>
+            <div class="card-meta">
+                <span>📅 2016</span>
+                <span>📍 مجلة الدراسات الأفريقية، القاهرة</span>
+            </div>
+            <p class="card-description">
+                قراءة نقدية في بنود اتفاقية السلام والمصالحة في مالي المُبرمة في الجزائر عام 2015،
+                وتقييم مدى قدرتها على معالجة الأسباب الجذرية للنزاع.
+            </p>
+            <div class="card-keywords">
+                <span class="keyword">اتفاقية السلام</span>
+                <span class="keyword">الجزائر</span>
+                <span class="keyword">الوساطة</span>
+                <span class="keyword">2015</span>
+            </div>
+            <div class="card-footer">
+                <span class="card-publisher">مجلة الدراسات الأفريقية</span>
+                <a href="#" class="btn-view">عرض التفاصيل</a>
+            </div>
+        </div>
+
+        <div class="card ar" data-lang="ar" data-type="book"
+             data-keywords="تمبكتو تراث حضاري إسلامي أزواد مالي">
+            <span class="card-type type-book">📖 كتاب</span>
+            <span class="card-lang-badge lang-ar">عربي</span>
+            <h3>تمبكتو: منارة الحضارة الإسلامية في قلب أزواد</h3>
+            <p class="card-author">المؤلف: <span>الشيخ سيدي محمد تاو</span></p>
+            <div class="card-meta">
+                <span>📅 2010</span>
+                <span>📍 الدار البيضاء</span>
+                <span>📄 220 صفحة</span>
+            </div>
+            <p class="card-description">
+                دراسة تاريخية وحضارية حول مدينة تمبكتو وإرثها العلمي الإسلامي،
+                ودورها المحوري في الثقافة الأزوادية عبر القرون.
+            </p>
+            <div class="card-keywords">
+                <span class="keyword">تمبكتو</span>
+                <span class="keyword">التراث الإسلامي</span>
+                <span class="keyword">المخطوطات</span>
+                <span class="keyword">التاريخ</span>
+            </div>
+            <div class="card-footer">
+                <span class="card-publisher">دار الرشاد</span>
+                <a href="#" class="btn-view">عرض التفاصيل</a>
+            </div>
+        </div>
+
+        <div class="card ar" data-lang="ar" data-type="article"
+             data-keywords="الطوارق قبائل ثقافة رعي بدو أزواد">
+            <span class="card-type type-article">📄 مقالة</span>
+            <span class="card-lang-badge lang-ar">عربي</span>
+            <h3>الطوارق: الهوية والثقافة والانتماء في منظومة الدولة الأفريقية</h3>
+            <p class="card-author">المؤلف: <span>د. حسن الطورة</span></p>
+            <div class="card-meta">
+                <span>📅 2011</span>
+                <span>📍 مجلة إفريقيا والشرق، المغرب</span>
+            </div>
+            <p class="card-description">
+                دراسة أنثروبولوجية تستعرض الهوية الثقافية لقبائل الطوارق ومكانتها
+                ضمن دول الساحل وتحدياتها في مواجهة سياسات الدمج القسري.
+            </p>
+            <div class="card-keywords">
+                <span class="keyword">الأنثروبولوجيا</span>
+                <span class="keyword">الثقافة البربرية</span>
+                <span class="keyword">الهوية</span>
+            </div>
+            <div class="card-footer">
+                <span class="card-publisher">مجلة إفريقيا والشرق</span>
+                <a href="#" class="btn-view">عرض التفاصيل</a>
+            </div>
+        </div>
+
+        <div class="card ar" data-lang="ar" data-type="report"
+             data-keywords="أزواد مالي أزمة إنسانية لاجئون نزوح">
+            <span class="card-type type-report">📊 تقرير</span>
+            <span class="card-lang-badge lang-ar">عربي</span>
+            <h3>الأزمة الإنسانية في شمال مالي: واقع النازحين والمهجّرين الأزواديين</h3>
+            <p class="card-author">المؤلف: <span>فريق المرصد العربي لحقوق الإنسان</span></p>
+            <div class="card-meta">
+                <span>📅 2013</span>
+                <span>📍 القاهرة</span>
+                <span>📄 تقرير ميداني</span>
+            </div>
+            <p class="card-description">
+                تقرير ميداني يرصد الأوضاع الإنسانية للسكان الأزواديين إثر الأحداث المسلحة عام 2012،
+                ويوثق انتهاكات حقوق الإنسان ومعاناة المدنيين.
+            </p>
+            <div class="card-keywords">
+                <span class="keyword">حقوق الإنسان</span>
+                <span class="keyword">اللاجئون</span>
+                <span class="keyword">النزوح</span>
+                <span class="keyword">الأزمة الإنسانية</span>
+            </div>
+            <div class="card-footer">
+                <span class="card-publisher">المرصد العربي لحقوق الإنسان</span>
+                <a href="#" class="btn-view">عرض التفاصيل</a>
+            </div>
+        </div>
+
+        <div class="card ar" data-lang="ar" data-type="article"
+             data-keywords="فرنسا أفريقيا مالي سيرفال تدخل عسكري">
+            <span class="card-type type-article">📄 مقالة</span>
+            <span class="card-lang-badge lang-ar">عربي</span>
+            <h3>التدخل العسكري الفرنسي في مالي: دراسة في الأهداف والتداعيات</h3>
+            <p class="card-author">المؤلف: <span>د. رضا هلال</span></p>
+            <div class="card-meta">
+                <span>📅 2014</span>
+                <span>📍 مجلة السياسة الدولية، القاهرة</span>
+            </div>
+            <p class="card-description">
+                تحليل نقدي لعملية سيرفال الفرنسية عام 2013 في شمال مالي،
+                وقراءة في الأهداف الحقيقية للتدخل وأثره على مسار التسوية السياسية.
+            </p>
+            <div class="card-keywords">
+                <span class="keyword">عملية سيرفال</span>
+                <span class="keyword">فرنسا وأفريقيا</span>
+                <span class="keyword">التدخل العسكري</span>
+            </div>
+            <div class="card-footer">
+                <span class="card-publisher">مجلة السياسة الدولية</span>
+                <a href="#" class="btn-view">عرض التفاصيل</a>
+            </div>
+        </div>
+
+        <div class="card ar" data-lang="ar" data-type="book"
+             data-keywords="إدارة النزاعات أفريقيا مالي تفاوض سلام">
+            <span class="card-type type-book">📖 كتاب</span>
+            <span class="card-lang-badge lang-ar">عربي</span>
+            <h3>إدارة النزاعات المسلحة في أفريقيا جنوب الصحراء: حالة مالي</h3>
+            <p class="card-author">المؤلف: <span>د. محمد السيد سليم</span></p>
+            <div class="card-meta">
+                <span>📅 2018</span>
+                <span>📍 القاهرة</span>
+                <span>📄 350 صفحة</span>
+            </div>
+            <p class="card-description">
+                دراسة مقارنة في آليات إدارة النزاعات الأفريقية تأخذ من الحالة المالية-الأزوادية
+                نموذجاً تحليلياً لفهم ديناميكيات الصراع وسبل التسوية.
+            </p>
+            <div class="card-keywords">
+                <span class="keyword">إدارة النزاعات</span>
+                <span class="keyword">الاتحاد الأفريقي</span>
+                <span class="keyword">الوساطة الدولية</span>
+            </div>
+            <div class="card-footer">
+                <span class="card-publisher">مكتبة الأنجلو المصرية</span>
+                <a href="#" class="btn-view">عرض التفاصيل</a>
+            </div>
+        </div>
+
+        <div class="card ar" data-lang="ar" data-type="article"
+             data-keywords="ليبيا السلاح أزواد مالي انهيار">
+            <span class="card-type type-article">📄 مقالة</span>
+            <span class="card-lang-badge lang-ar">عربي</span>
+            <h3>تأثير الأزمة الليبية على النزاع في شمال مالي: السلاح والمقاتلون</h3>
+            <p class="card-author">المؤلف: <span>د. الطاهر التومي</span></p>
+            <div class="card-meta">
+                <span>📅 2013</span>
+                <span>📍 مجلة المستقبل العربي</span>
+            </div>
+            <p class="card-description">
+                يكشف المقال العلاقة بين انهيار النظام الليبي وتدفق السلاح والمقاتلين الطوارق
+                نحو منطقة أزواد، وكيف أشعل ذلك فتيل انتفاضة 2012.
+            </p>
+            <div class="card-keywords">
+                <span class="keyword">ليبيا</span>
+                <span class="keyword">تدفق السلاح</span>
+                <span class="keyword">الارتداد الإقليمي</span>
+            </div>
+            <div class="card-footer">
+                <span class="card-publisher">مجلة المستقبل العربي</span>
+                <a href="#" class="btn-view">عرض التفاصيل</a>
+            </div>
+        </div>
+
+        <div class="card ar" data-lang="ar" data-type="thesis"
+             data-keywords="مالي دولة فاشلة حوكمة لامركزية أزواد">
+            <span class="card-type type-thesis">🎓 أطروحة</span>
+            <span class="card-lang-badge lang-ar">عربي</span>
+            <h3>ظاهرة فشل الدولة في الساحل الأفريقي: مالي أنموذجاً</h3>
+            <p class="card-author">المؤلف: <span>عبد الرحمن ولد أحمد لمين</span></p>
+            <div class="card-meta">
+                <span>📅 2019</span>
+                <span>📍 جامعة الجزائر، كلية العلوم السياسية</span>
+                <span>📄 رسالة دكتوراه</span>
+            </div>
+            <p class="card-description">
+                أطروحة دكتوراه تُشرّح ظاهرة فشل الدولة المالية وانعكاساتها على الأزمة الأزوادية،
+                مع مقاربة مقارنة لتجارب دول الساحل الأخرى.
+            </p>
+            <div class="card-keywords">
+                <span class="keyword">فشل الدولة</span>
+                <span class="keyword">الحوكمة</span>
+                <span class="keyword">الساحل</span>
+                <span class="keyword">الديمقراطية</span>
+            </div>
+            <div class="card-footer">
+                <span class="card-publisher">جامعة الجزائر</span>
+                <a href="#" class="btn-view">عرض التفاصيل</a>
+            </div>
+        </div>
+
+    </div><!-- /grid-ar -->
+
+
+    <!-- ==============================
+         القسم الثاني: المصادر الفرنسية
+    ============================== -->
+    <h2 class="section-title french" data-section="fr">
+        📗 Deuxièmement : Publications Françaises
+    </h2>
+
+    <div class="cards-grid" id="grid-fr">
+
+        <div class="card fr" data-lang="fr" data-type="book"
+             data-keywords="Touareg Azawad Mali rébellion identité">
+            <span class="card-type type-book">📖 Livre</span>
+            <span class="card-lang-badge lang-fr">Français</span>
+            <h3>Les Touaregs : Voix solitaires sous l'éternité menacée</h3>
+            <p class="card-author">Auteur : <span>Pierre Boilley</span></p>
+            <div class="card-meta">
+                <span>📅 1999</span>
+                <span>📍 Paris, Karthala</span>
+                <span>📄 636 p.</span>
+            </div>
+            <p class="card-description">
+                Ouvrage de référence sur l'histoire et la politique des Touaregs du Mali et du Niger,
+                analysant les rébellions successives et les revendications identitaires depuis l'indépendance.
+            </p>
+            <div class="card-keywords">
+                <span class="keyword">Touaregs</span>
+                <span class="keyword">Rébellions</span>
+                <span class="keyword">Identité</span>
+                <span class="keyword">Sahara</span>
+            </div>
+            <div class="card-footer">
+                <span class="card-publisher">Éditions Karthala, Paris</span>
+                <a href="#" class="btn-view">Voir détails</a>
+            </div>
+        </div>
+
+        <div class="card fr" data-lang="fr" data-type="article"
+             data-keywords="Mali crise 2012 MNLA rébellion Azawad indépendance">
+            <span class="card-type type-article">📄 Article</span>
+            <span class="card-lang-badge lang-fr">Français</span>
+            <h3>La rébellion touarègue et la crise malienne de 2012 : entre séparatisme et djihadisme</h3>
+            <p class="card-author">Auteur : <span>Mathieu Pellerin</span></p>
+            <div class="card-meta">
+                <span>📅 2012</span>
+                <span>📍 Politique Étrangère, IFRI, n°3</span>
+            </div>
+            <p class="card-description">
+                Analyse des dynamiques de la crise malienne de 2012, distinguant les revendications
+                politiques légitimes du MNLA des ambitions djihadistes d'Ansar Dine et d'AQMI.
+            </p>
+            <div class="card-keywords">
+                <span class="keyword">MNLA</span>
+                <span class="keyword">Ansar Dine</span>
+                <span class="keyword">AQMI</span>
+                <span class="keyword">Azawad 2012</span>
+            </div>
+            <div class="card-footer">
+                <span class="card-publisher">IFRI - Institut Français des Relations Internationales</span>
+                <a href="#" class="btn-view">Voir détails</a>
+            </div>
+        </div>
+
+        <div class="card fr" data-lang="fr" data-type="book"
+             data-keywords="Afrique Sahel Mali géopolitique sécurité terrorisme">
+            <span class="card-type type-book">📖 Livre</span>
+            <span class="card-lang-badge lang-fr">Français</span>
+            <h3>Le Sahel : Une autre manière de voir le monde</h3>
+            <p class="card-author">Auteur : <span>Jean-Pierre Olivier de Sardan</span></p>
+            <div class="card-meta">
+                <span>📅 2013</span>
+                <span>📍 Paris</span>
+                <span>📄 290 p.</span>
+            </div>
+            <p class="card-description">
+                Lecture géopolitique et anthropologique du Sahel comme espace de tensions entre
+                États fragiles, groupes armés et puissances extérieures, avec un focus sur le Mali.
+            </p>
+            <div class="card-keywords">
+                <span class="keyword">Géopolitique</span>
+                <span class="keyword">Sahel</span>
+                <span class="keyword">États fragiles</span>
+            </div>
+            <div class="card-footer">
+                <span class="card-publisher">Éditions du Seuil</span>
+                <a href="#" class="btn-view">Voir détails</a>
+            </div>
+        </div>
+
+        <div class="card fr" data-lang="fr" data-type="thesis"
+             data-keywords="Azawad auto-détermination droit international sécession">
+            <span class="card-type type-thesis">🎓 Thèse</span>
+            <span class="card-lang-badge lang-fr">Français</span>
+            <h3>Le droit à l'autodétermination des peuples : le cas de l'Azawad au regard du droit international</h3>
+            <p class="card-author">Auteur : <span>Aïssata Maïga</span></p>
+            <div class="card-meta">
+                <span>📅 2017</span>
+                <span>📍 Université Paris I Panthéon-Sorbonne</span>
+                <span>📄 Thèse de doctorat</span>
+            </div>
+            <p class="card-description">
+                Thèse de droit international examinant la légitimité de la revendication
+                d'autodétermination de l'Azawad à la lumière du droit international contemporain
+                et de la jurisprudence internationale.
+            </p>
+            <div class="card-keywords">
+                <span class="keyword">Autodétermination</span>
+                <span class="keyword">Droit international</span>
+                <span class="keyword">Sécession</span>
+                <span class="keyword">ONU</span>
+            </div>
+            <div class="card-footer">
+                <span class="card-publisher">Université Paris I - Panthéon-Sorbonne</span>
+                <a href="#" class="btn-view">Voir détails</a>
+            </div>
+        </div>
+
+        <div class="card fr" data-lang="fr" data-type="article"
+             data-keywords="opération Serval France Mali intervention militaire jihadisme">
+            <span class="card-type type-article">📄 Article</span>
+            <span class="card-lang-badge lang-fr">Français</span>
+            <h3>L'opération Serval au Mali : succès militaire, impasse politique</h3>
+            <p class="card-author">Auteur : <span>François Gèze & Salima Mellah</span></p>
+            <div class="card-meta">
+                <span>📅 2014</span>
+                <span>📍 Revue Hérodote, n°152</span>
+            </div>
+            <p class="card-description">
+                Évaluation critique de l'intervention militaire française au Mali (janvier 2013),
+                soulignant le contraste entre les résultats militaires immédiats et l'absence de
+                règlement politique durable de la question azawadienne.
+            </p>
+            <div class="card-keywords">
+                <span class="keyword">Opération Serval</span>
+                <span class="keyword">France-Mali</span>
+                <span class="keyword">Intervention militaire</span>
+            </div>
+            <div class="card-footer">
+                <span class="card-publisher">Revue Hérodote / La Découverte</span>
+                <a href="#" class="btn-view">Voir détails</a>
+            </div>
+        </div>
+
+        <div class="card fr" data-lang="fr" data-type="book"
+             data-keywords="Touareg Mali Niger histoire rébellion 1963 1990">
+            <span class="card-type type-book">📖 Livre</span>
+            <span class="card-lang-badge lang-fr">Français</span>
+            <h3>Les rébellions touarègues : 1963-2009, histoire d'un combat</h3>
+            <p class="card-author">Auteur : <span>André Bourgeot</span></p>
+            <div class="card-meta">
+                <span>📅 2011</span>
+                <span>📍 Paris, L'Harmattan</span>
+                <span>📄 320 p.</span>
+            </div>
+            <p class="card-description">
+                Chronologie exhaustive des différentes rébellions touarègues depuis 1963 jusqu'à 2009,
+                avec une analyse des facteurs socio-économiques, politiques et identitaires ayant alimenté
+                ces conflits récurrents.
+            </p>
+            <div class="card-keywords">
+                <span class="keyword">Rébellion 1963</span>
+                <span class="keyword">Rébellion 1990</span>
+                <span class="keyword">Accords de paix</span>
+                <span class="keyword">Touaregs</span>
+            </div>
+            <div class="card-footer">
+                <span class="card-publisher">L'Harmattan, Paris</span>
+                <a href="#" class="btn-view">Voir détails</a>
+            </div>
+        </div>
+
+        <div class="card fr" data-lang="fr" data-type="article"
+             data-keywords="accord Alger 2015 Mali paix mise en oeuvre">
+            <span class="card-type type-article">📄 Article</span>
+            <span class="card-lang-badge lang-fr">Français</span>
+            <h3>L'Accord d'Alger de 2015 : entre ambitions de paix et blocages structurels</h3>
+            <p class="card-author">Auteur : <span>International Crisis Group</span></p>
+            <div class="card-meta">
+                <span>📅 2016</span>
+                <span>📍 Rapport ICG, Afrique n°244</span>
+            </div>
+            <p class="card-description">
+                Analyse approfondie des difficultés de mise en œuvre de l'Accord pour la paix et la
+                réconciliation au Mali issu du processus d'Alger, identifiant les obstacles politiques,
+                institutionnels et sécuritaires.
+            </p>
+            <div class="card-keywords">
+                <span class="keyword">Accord d'Alger</span>
+                <span class="keyword">Réconciliation</span>
+                <span class="keyword">DDR</span>
+                <span class="keyword">Processus de paix</span>
+            </div>
+            <div class="card-footer">
+                <span class="card-publisher">International Crisis Group</span>
+                <a href="#" class="btn-view">Voir détails</a>
+            </div>
+        </div>
+
+        <div class="card fr" data-lang="fr" data-type="book"
+             data-keywords="Tombouctou Azawad culture manuscrits Islam patrimoine">
+            <span class="card-type type-book">📖 Livre</span>
+            <span class="card-lang-badge lang-fr">Français</span>
+            <h3>Tombouctou et l'empire Songhaï : l'épanouissement du Soudan nigérien</h3>
+            <p class="card-author">Auteur : <span>Jean Rouch</span></p>
+            <div class="card-meta">
+                <span>📅 1954</span>
+                <span>📍 Paris, IFAN</span>
+                <span>📄 240 p.</span>
+            </div>
+            <p class="card-description">
+                Œuvre fondatrice sur l'histoire de Tombouctou et de l'Empire Songhaï, essentielle
+                pour comprendre le substrat historique et culturel de la région azawadienne
+                avant la colonisation française.
+            </p>
+            <div class="card-keywords">
+                <span class="keyword">Tombouctou</span>
+                <span class="keyword">Empire Songhaï</span>
+                <span class="keyword">Histoire précoloniale</span>
+            </div>
+            <div class="card-footer">
+                <span class="card-publisher">IFAN / Librairie Larose</span>
+                <a href="#" class="btn-view">Voir détails</a>
+            </div>
+        </div>
+
+        <div class="card fr" data-lang="fr" data-type="article"
+             data-keywords="MINUSMA ONU Mali peacekeeping sécurité">
+            <span class="card-type type-article">📄 Article</span>
+            <span class="card-lang-badge lang-fr">Français</span>
+            <h3>La MINUSMA face au défi sécuritaire dans le nord du Mali : limites et perspectives</h3>
+            <p class="card-author">Auteur : <span>Thierry Vircoulon</span></p>
+            <div class="card-meta">
+                <span>📅 2019</span>
+                <span>📍 Notes de l'IFRI, Paris</span>
+            </div>
+            <p class="card-description">
+                Évaluation du rôle et des limites de la Mission multidimensionnelle intégrée des
+                Nations Unies pour la stabilisation au Mali dans la gestion du conflit azawadien
+                et la protection des populations civiles.
+            </p>
+            <div class="card-keywords">
+                <span class="keyword">MINUSMA</span>
+                <span class="keyword">ONU</span>
+                <span class="keyword">Maintien de la paix</span>
+                <span class="keyword">Stabilisation</span>
+            </div>
+            <div class="card-footer">
+                <span class="card-publisher">IFRI, Paris</span>
+                <a href="#" class="btn-view">Voir détails</a>
+            </div>
+        </div>
+
+        <div class="card fr" data-lang="fr" data-type="thesis"
+             data-keywords="Mali gouvernance décentralisation nord régions">
+            <span class="card-type type-thesis">🎓 Thèse</span>
+            <span class="card-lang-badge lang-fr">Français</span>
+            <h3>Décentralisation et gouvernance locale au nord Mali : entre réformes institutionnelles et réalités territoriales</h3>
+            <p class="card-author">Auteur : <span>Moussa Coulibaly</span></p>
+            <div class="card-meta">
+                <span>📅 2020</span>
+                <span>📍 Université de Bordeaux</span>
+                <span>📄 Thèse de doctorat</span>
+            </div>
+            <p class="card-description">
+                Thèse portant sur les politiques de décentralisation au Mali et leur impact sur les
+                régions du nord, analysant l'écart entre les réformes institutionnelles et les
+                attentes des populations azawadienne.
+            </p>
+            <div class="card-keywords">
+                <span class="keyword">Décentralisation</span>
+                <span class="keyword">Gouvernance</span>
+                <span class="keyword">Collectivités territoriales</span>
+            </div>
+            <div class="card-footer">
+                <span class="card-publisher">Université de Bordeaux</span>
+                <a href="#" class="btn-view">Voir détails</a>
+            </div>
+        </div>
+
+        <div class="card fr" data-lang="fr" data-type="article"
+             data-keywords="Azawad femmes genre conflit rôle">
+            <span class="card-type type-article">📄 Article</span>
+            <span class="card-lang-badge lang-fr">Français</span>
+            <h3>Femmes touarègues et conflit armé : entre victimisation et agentivité</h3>
+            <p class="card-author">Auteur : <span>Hélène Claudot-Hawad</span></p>
+            <div class="card-meta">
+                <span>📅 2015</span>
+                <span>📍 Revue Tiers Monde, n°224</span>
+            </div>
+            <p class="card-description">
+                Étude sur le rôle des femmes touarègues dans les conflits armés du nord Mali,
+                entre victimes de violences et actrices actives dans les processus de résistance
+                et de maintien de la cohésion sociale.
+            </p>
+            <div class="card-keywords">
+                <span class="keyword">Genre</span>
+                <span class="keyword">Femmes touarègues</span>
+                <span class="keyword">Conflit armé</span>
+                <span class="keyword">Société</span>
+            </div>
+            <div class="card-footer">
+                <span class="card-publisher">Revue Tiers Monde / Armand Colin</span>
+                <a href="#" class="btn-view">Voir détails</a>
+            </div>
+        </div>
+
+        <div class="card fr" data-lang="fr" data-type="book"
+             data-keywords="Mali colonisation histoire France AOF passé">
+            <span class="card-type type-book">📖 Livre</span>
+            <span class="card-lang-badge lang-fr">Français</span>
+            <h3>Histoire du Mali de l'indépendance à nos jours</h3>
+            <p class="card-author">Auteur : <span>Pascal Labazée & Jean-Pierre Chauveau</span></p>
+            <div class="card-meta">
+                <span>📅 2008</span>
+                <span>📍 Paris, Karthala</span>
+                <span>📄 410 p.</span>
+            </div>
+            <p class="card-description">
+                Ouvrage historique retraçant le parcours du Mali depuis son indépendance en 1960,
+                accordant une attention particulière aux enjeux du nord du pays et aux différentes
+                phases de la question azawadienne.
+            </p>
+            <div class="card-keywords">
+                <span class="keyword">Histoire du Mali</span>
+                <span class="keyword">Indépendance 1960</span>
+                <span class="keyword">Politique malienne</span>
+            </div>
+            <div class="card-footer">
+                <span class="card-publisher">Éditions Karthala</span>
+                <a href="#" class="btn-view">Voir détails</a>
+            </div>
+        </div>
+
+        <div class="card fr" data-lang="fr" data-type="article"
+             data-keywords="Wagner Russie Mali Sahel sécurité">
+            <span class="card-type type-article">📄 Article</span>
+            <span class="card-lang-badge lang-fr">Français</span>
+            <h3>Le groupe Wagner au Mali : implications pour le conflit dans le nord et la question azawadienne</h3>
+            <p class="card-author">Auteur : <span>Wassim Nasr</span></p>
+            <div class="card-meta">
+                <span>📅 2022</span>
+                <span>📍 France 24 / Note d'analyse stratégique</span>
+            </div>
+            <p class="card-description">
+                Analyse de l'implantation du groupe paramilitaire russe Wagner au Mali et ses
+                conséquences sur la dynamique du conflit dans le nord du pays, notamment vis-à-vis
+                des mouvements armés signataires de l'Accord d'Alger.
+            </p>
+            <div class="card-keywords">
+                <span class="keyword">Wagner</span>
+                <span class="keyword">Russie-Mali</span>
+                <span class="keyword">Géopolitique</span>
+                <span class="keyword">2022</span>
+            </div>
+            <div class="card-footer">
+                <span class="card-publisher">France 24 / Analyse stratégique</span>
+                <a href="#" class="btn-view">Voir détails</a>
+            </div>
+        </div>
+
+        <div class="card fr" data-lang="fr" data-type="report"
+             data-keywords="droits humains Mali nord Azawad violations">
+            <span class="card-type type-report">📊 Rapport</span>
+            <span class="card-lang-badge lang-fr">Français</span>
+            <h3>Mali : Violations des droits de l'homme dans le nord (2012–2023)</h3>
+            <p class="card-author">Auteur : <span>Human Rights Watch</span></p>
+            <div class="card-meta">
+                <span>📅 2023</span>
+                <span>📍 New York / Geneva</span>
+                <span>📄 Rapport annuel</span>
+            </div>
+            <p class="card-description">
+                Rapport documentant les violations des droits de l'homme commises par toutes les
+                parties au conflit dans le nord du Mali, incluant les Forces armées maliennes,
+                les groupes armés signataires et les groupes djihadistes.
+            </p>
+            <div class="card-keywords">
+                <span class="keyword">Droits de l'homme</span>
+                <span class="keyword">Violations</span>
+                <span class="keyword">Civils</span>
+                <span class="keyword">HRW</span>
+            </div>
+            <div class="card-footer">
+                <span class="card-publisher">Human Rights Watch</span>
+                <a href="#" class="btn-view">Voir détails</a>
+            </div>
+        </div>
+
+    </div><!-- /grid-fr -->
+
+
+    <!-- ==============================
+         القسم الثالث: المصادر الإنجليزية
+    ============================== -->
+    <h2 class="section-title english" data-section="en">
+        📙 Thirdly: English Publications
+    </h2>
+
+    <div class="cards-grid" id="grid-en">
+
+        <div class="card en" data-lang="en" data-type="book"
+             data-keywords="Tuareg Azawad Mali rebellion identity politics">
+            <span class="card-type type-book">📖 Book</span>
+            <span class="card-lang-badge lang-en">English</span>
+            <h3>The Tuareg of the Sahara: Rebellion, Identity and Conflict in Northern Mali</h3>
+            <p class="card-author">Author: <span>Jeremy Keenan</span></p>
+            <div class="card-meta">
+                <span>📅 2004</span>
+                <span>📍 London, Pluto Press</span>
+                <span>📄 312 p.</span>
+            </div>
+            <p class="card-description">
+                A comprehensive examination of the Tuareg people and their political struggles
+                in the Sahara, focusing on identity formation, colonial legacy, and the roots
+                of successive rebellions in northern Mali and Niger.
+            </p>
+            <div class="card-keywords">
+                <span class="keyword">Tuareg</span>
+                <span class="keyword">Sahara</span>
+                <span class="keyword">Rebellion</span>
+                <span class="keyword">Identity</span>
+            </div>
+            <div class="card-footer">
+                <span class="card-publisher">Pluto Press, London</span>
+                <a href="#" class="btn-view">View Details</a>
+            </div>
+        </div>
+
+        <div class="card en" data-lang="en" data-type="article"
+             data-keywords="Mali crisis 2012 state collapse Azawad MNLA secession">
+            <span class="card-type type-article">📄 Article</span>
+            <span class="card-lang-badge lang-en">English</span>
+            <h3>State Collapse and the Azawad Crisis: Understanding Mali's 2012 Political Breakdown</h3>
+            <p class="card-author">Author: <span>Bruce Whitehouse</span></p>
+            <div class="card-meta">
+                <span>📅 2012</span>
+                <span>📍 African Affairs, Vol. 111, No. 444</span>
+            </div>
+            <p class="card-description">
+                An academic analysis of how the political crisis of 2012 led to the collapse
+                of Malian state authority in the north, enabling the MNLA to declare the
+                independent state of Azawad in April 2012.
+            </p>
+            <div class="card-keywords">
+                <span class="keyword">State collapse</span>
+                <span class="keyword">2012 crisis</span>
+                <span class="keyword">MNLA</span>
+                <span class="keyword">African Affairs</span>
+            </div>
+            <div class="card-footer">
+                <span class="card-publisher">African Affairs / Oxford University Press</span>
+                <a href="#" class="btn-view">View Details</a>
+            </div>
+        </div>
+
+        <div class="card en" data-lang="en" data-type="book"
+             data-keywords="Sahel security terrorism jihadism al-Qaeda Mali AQIM">
+            <span class="card-type type-book">📖 Book</span>
+            <span class="card-lang-badge lang-en">English</span>
+            <h3>The Jihad Next Door: The Roots of Radicalism in the Sahel</h3>
+            <p class="card-author">Author: <span>Frederic Wehrey & Anouar Boukhars</span></p>
+            <div class="card-meta">
+                <span>📅 2013</span>
+                <span>📍 Carnegie Endowment for International Peace</span>
+                <span>📄 280 p.</span>
+            </div>
+            <p class="card-description">
+                An in-depth study examining the conditions that gave rise to jihadist movements
+                in the Sahel region, with particular attention to the intersection of the Azawad
+                conflict with al-Qaeda in the Islamic Maghreb (AQIM) and Ansar Dine.
+            </p>
+            <div class="card-keywords">
+                <span class="keyword">Jihadism</span>
+                <span class="keyword">AQIM</span>
+                <span class="keyword">Sahel security</span>
+                <span class="keyword">Radicalization</span>
+            </div>
+            <div class="card-footer">
+                <span class="card-publisher">Carnegie Endowment for International Peace</span>
+                <a href="#" class="btn-view">View Details</a>
+            </div>
+        </div>
+
+        <div class="card en" data-lang="en" data-type="article"
+             data-keywords="peace agreement Algeria 2015 Mali implementation armed groups">
+            <span class="card-type type-article">📄 Article</span>
+            <span class="card-lang-badge lang-en">English</span>
+            <h3>The Algiers Peace Agreement and Its Aftermath: Challenges to Stabilization in Northern Mali</h3>
+            <p class="card-author">Author: <span>Arthur Boutellis & Paul Williams</span></p>
+            <div class="card-meta">
+                <span>📅 2017</span>
+                <span>📍 Journal of African Security, Vol. 10</span>
+            </div>
+            <p class="card-description">
+                A critical assessment of the 2015 Algiers Peace Agreement's implementation,
+                examining structural challenges, spoiler dynamics, and the role of international
+                actors in sustaining the fragile peace process in Mali.
+            </p>
+            <div class="card-keywords">
+                <span class="keyword">Algiers Agreement</span>
+                <span class="keyword">Peace process</span>
+                <span class="keyword">Stabilization</span>
+                <span class="keyword">Armed groups</span>
+            </div>
+            <div class="card-footer">
+                <span class="card-publisher">Journal of African Security / Taylor & Francis</span>
+                <a href="#" class="btn-view">View Details</a>
+            </div>
+        </div>
+
+        <div class="card en" data-lang="en" data-type="thesis"
+             data-keywords="Azawad self-determination international law secession minorities">
+            <span class="card-type type-thesis">🎓 Thesis</span>
+            <span class="card-lang-badge lang-en">English</span>
+            <h3>Azawad's Claim to Self-Determination: A Critical Analysis under Contemporary International Law</h3>
+            <p class="card-author">Author: <span>Amina Wane</span></p>
+            <div class="card-meta">
+                <span>📅 2018</span>
+                <span>📍 University of Edinburgh, School of Law</span>
+                <span>📄 LLM Dissertation</span>
+            </div>
+            <p class="card-description">
+                An LLM dissertation examining the legal basis of Azawad's claim to self-determination
+                under international law, comparing it to precedents such as Kosovo, South Sudan,
+                and Catalonia within the framework of UN resolutions.
+            </p>
+            <div class="card-keywords">
+                <span class="keyword">Self-determination</span>
+                <span class="keyword">International Law</span>
+                <span class="keyword">Secession</span>
+                <span class="keyword">Kosovo comparison</span>
+            </div>
+            <div class="card-footer">
+                <span class="card-publisher">University of Edinburgh</span>
+                <a href="#" class="btn-view">View Details</a>
+            </div>
+        </div>
+
+        <div class="card en" data-lang="en" data-type="article"
+             data-keywords="MINUSMA UN peacekeeping Mali challenges limitations">
+            <span class="card-type type-article">📄 Article</span>
+            <span class="card-lang-badge lang-en">English</span>
+            <h3>MINUSMA and the Challenge of Peacekeeping in an Active Conflict: The Mali Experience</h3>
+            <p class="card-author">Author: <span>Linnea Gelot & Sandra Smis</span></p>
+            <div class="card-meta">
+                <span>📅 2020</span>
+                <span>📍 International Peacekeeping, Vol. 27, No. 3</span>
+            </div>
+            <p class="card-description">
+                An academic evaluation of MINUSMA's peacekeeping mandate in Mali, analyzing
+                the mission's operational limitations, civilian protection record, and its
+                impact on the political dynamics of the Azawad conflict.
+            </p>
+            <div class="card-keywords">
+                <span class="keyword">MINUSMA</span>
+                <span class="keyword">UN Peacekeeping</span>
+                <span class="keyword">Mali</span>
+                <span class="keyword">Civilian protection</span>
+            </div>
+            <div class="card-footer">
+                <span class="card-publisher">International Peacekeeping / Routledge</span>
+                <a href="#" class="btn-view">View Details</a>
+            </div>
+        </div>
+
+        <div class="card en" data-lang="en" data-type="book"
+             data-keywords="Tuareg culture society anthropology Sahara nomads">
+            <span class="card-type type-book">📖 Book</span>
+            <span class="card-lang-badge lang-en">English</span>
+            <h3>Tuareg Society within a Globalized World: Saharan Life in Transition</h3>
+            <p class="card-author">Author: <span>Ines Kohl & Anja Fischer (Eds.)</span></p>
+            <div class="card-meta">
+                <span>📅 2010</span>
+                <span>📍 London, I.B. Tauris</span>
+                <span>📄 285 p.</span>
+            </div>
+            <p class="card-description">
+                A multidisciplinary collection examining how Tuareg society is adapting to
+                globalization, sedentarization, and political marginalization, with particular
+                attention to northern Mali and the Azawad region.
+            </p>
+            <div class="card-keywords">
+                <span class="keyword">Tuareg society</span>
+                <span class="keyword">Globalization</span>
+                <span class="keyword">Nomadism</span>
+                <span class="keyword">Cultural change</span>
+            </div>
+            <div class="card-footer">
+                <span class="card-publisher">I.B. Tauris, London</span>
+                <a href="#" class="btn-view">View Details</a>
+            </div>
+        </div>
+
+        <div class="card en" data-lang="en" data-type="article"
+             data-keywords="Libya collapse spillover Mali weapons Tuareg 2012">
+            <span class="card-type type-article">📄 Article</span>
+            <span class="card-lang-badge lang-en">English</span>
+            <h3>The Libyan Fallout: How Gaddafi's Collapse Armed the Tuareg Rebellion in Mali</h3>
+            <p class="card-author">Author: <span>Peter Tinti</span></p>
+            <div class="card-meta">
+                <span>📅 2013</span>
+                <span>📍 Global Post / West Africa Report</span>
+            </div>
+            <p class="card-description">
+                An investigative analysis of how the fall of the Gaddafi regime in 2011 triggered
+                a massive influx of weapons and Tuareg fighters returning from Libya to Mali,
+                directly fueling the 2012 Azawad uprising.
+            </p>
+            <div class="card-keywords">
+                <span class="keyword">Libya spillover</span>
+                <span class="keyword">Arms proliferation</span>
+                <span class="keyword">Regional security</span>
+            </div>
+            <div class="card-footer">
+                <span class="card-publisher">Global Post / West Africa Report</span>
+                <a href="#" class="btn-view">View Details</a>
+            </div>
+        </div>
+
+        <div class="card en" data-lang="en" data-type="report"
+             data-keywords="Mali Azawad displacement humanitarian crisis refugees">
+            <span class="card-type type-report">📊 Report</span>
+            <span class="card-lang-badge lang-en">English</span>
+            <h3>Crisis in Northern Mali: Displacement, Humanitarian Needs and the Azawad Population (2012–2024)</h3>
+            <p class="card-author">Author: <span>UNHCR & OCHA Mali</span></p>
+            <div class="card-meta">
+                <span>📅 2024</span>
+                <span>📍 Geneva / Bamako</span>
+                <span>📄 Annual report</span>
+            </div>
+            <p class="card-description">
+                A comprehensive humanitarian report documenting the displacement crisis affecting
+                the Azawad population, including IDP statistics, refugee flows to neighboring
+                countries, and humanitarian access challenges in conflict zones.
+            </p>
+            <div class="card-keywords">
+                <span class="keyword">Humanitarian crisis</span>
+                <span class="keyword">Displacement</span>
+                <span class="keyword">UNHCR</span>
+                <span class="keyword">Refugees</span>
+            </div>
+            <div class="card-footer">
+                <span class="card-publisher">UNHCR / OCHA</span>
+                <a href="#" class="btn-view">View Details</a>
+            </div>
+        </div>
+
+    </div><!-- /grid-en -->
+
+</div><!-- /main-container -->
+
+<!-- ===== الذيل ===== -->
+<footer>
+    <p>📚 <strong>المكتبة العلمية للقضية الأزوادية</strong></p>
+    <p>تجميع شامل للمصادر العلمية حول منطقة أزواد وشمال مالي</p>
+    <p style="margin-top:10px; font-size:0.82em;">
+        ⚠️ هذه الصفحة للأغراض الأكاديمية والبحثية فقط | À des fins académiques uniquement
+    </p>
+    <p style="margin-top:8px; font-size:0.8em;">آخر تحديث: 2024</p>
+</footer>
+
+<!-- ===== JavaScript ===== -->
+<script>
+    let currentLang = 'all';
+    let currentType = 'all';
+
+    // ===== البحث في الوقت الفعلي =====
+    function filterCards() {
+        const query = document.getElementById('searchInput').value.toLowerCase().trim();
+        const allCards = document.querySelectorAll('.card');
+        let visibleCount = 0;
+
+        allCards.forEach(card => {
+            const title = card.querySelector('h3')?.textContent.toLowerCase() || '';
+            const author = card.querySelector('.card-author')?.textContent.toLowerCase() || '';
+            const keywords = card.dataset.keywords?.toLowerCase() || '';
+            const description = card.querySelector('.card-description')?.textContent.toLowerCase() || '';
+            const lang = card.dataset.lang;
+            const type = card.dataset.type;
+
+            const matchesSearch = !query ||
+                title.includes(query) ||
+                author.includes(query) ||
+                keywords.includes(query) ||
+                description.includes(query);
+
+            const matchesLang = currentLang === 'all' || lang === currentLang;
+            const matchesType = currentType === 'all' || type === currentType;
+
+            if (matchesSearch && matchesLang && matchesType) {
+                card.classList.remove('hidden');
+                visibleCount++;
+            } else {
+                card.classList.add('hidden');
+            }
+        });
+
+        // إظهار/إخفاء عناوين الأقسام
+        toggleSectionTitles();
+
+        // عرض رسالة "لا نتائج"
+        document.getElementById('noResults').style.display =
+            visibleCount === 0 ? 'block' : 'none';
+
+        // تحديث شريط التقدم
+        updateProgressBar();
+    }
+
+    // ===== فلترة حسب اللغة =====
+    function filterByLang(lang, btn) {
+        currentLang = lang;
+        currentType = 'all';
+
+        // تحديث أزرار اللغة
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        filterCards();
+    }
+
+    // ===== فلترة حسب النوع =====
+    function filterByType(type, btn) {
+        currentType = currentType === type ? 'all' : type;
+        currentLang = 'all';
+
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        if (currentType !== 'all') btn.classList.add('active');
+
+        filterCards();
+    }
+
+    // ===== إخفاء/إظهار عناوين الأقسام الفارغة =====
+    function toggleSectionTitles() {
+        const sections = ['ar', 'fr', 'en'];
+        sections.forEach(lang => {
+            const grid = document.getElementById('grid-' + lang);
+            const sectionTitle = document.querySelector(`.section-title.${lang === 'ar' ? 'arabic' : lang === 'fr' ? 'french' : 'english'}`);
+            if (grid && sectionTitle) {
+                const visibleCards = grid.querySelectorAll('.card:not(.hidden)');
+                sectionTitle.style.display = visibleCards.length === 0 ? 'none' : 'flex';
+            }
+        });
+    }
+
+    // ===== شريط التقدم عند التمرير =====
+    window.addEventListener('scroll', updateProgressBar);
+
+    function updateProgressBar() {
+        const winScroll = document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
+        document.getElementById('progressBar').style.width = scrolled + '%';
+    }
+
+    // ===== إضافة خاصية dir للبطاقات الفرنسية والإنجليزية =====
+    document.querySelectorAll('.card.fr, .card.en').forEach(card => {
+        card.style.direction = 'ltr';
+        card.style.textAlign = 'left';
+    });
+
+    // ===== تشغيل الفلترة مرة واحدة عند التحميل =====
+    window.addEventListener('DOMContentLoaded', () => {
+        filterCards();
+    });
+</script>
+
+</body>
+</html>

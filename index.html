@@ -1,411 +1,6 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>المكتبة العلمية - القضية الأزوادية في شمال مالي</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: 'Segoe UI', 'Arial', sans-serif;
-            background-color: #f0f4f8;
-            color: #2d3748;
-            line-height: 1.8;
-        }
-
-        /* ===== شريط التقدم ===== */
-        #progressBar {
-            position: fixed;
-            top: 0; left: 0;
-            height: 4px;
-            width: 0%;
-            background: linear-gradient(90deg, #3182ce, #f6ad55, #e53e3e);
-            z-index: 9999;
-            transition: width 0.2s;
-        }
-
-        /* ===== الرأس ===== */
-        header {
-            background: linear-gradient(135deg, #1a365d 0%, #2b6cb0 60%, #3182ce 100%);
-            color: white;
-            padding: 50px 20px 35px;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.25);
-        }
-
-        header h1 {
-            font-size: 2.1em;
-            margin-bottom: 8px;
-            text-shadow: 1px 2px 4px rgba(0,0,0,0.3);
-            letter-spacing: 0.5px;
-        }
-
-        header .subtitle {
-            font-size: 1em;
-            opacity: 0.88;
-            max-width: 750px;
-            margin: 0 auto 8px;
-        }
-
-        .header-line {
-            width: 90px;
-            height: 4px;
-            background: linear-gradient(90deg, #f6ad55, #fc8181);
-            margin: 14px auto;
-            border-radius: 3px;
-        }
-
-        /* ===== شريط البحث ===== */
-        .search-section {
-            background: #ffffff;
-            padding: 18px 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.09);
-            position: sticky;
-            top: 0;
-            z-index: 200;
-        }
-
-        .search-inner {
-            max-width: 1250px;
-            margin: 0 auto;
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            align-items: center;
-        }
-
-        .search-input {
-            flex: 1;
-            min-width: 240px;
-            padding: 11px 18px;
-            border: 2px solid #bee3f8;
-            border-radius: 8px;
-            font-size: 0.97em;
-            background: #ebf8ff;
-            color: #2d3748;
-            outline: none;
-            transition: all 0.3s;
-            text-align: right;
-        }
-
-        .search-input:focus {
-            border-color: #3182ce;
-            background: #fff;
-            box-shadow: 0 0 0 3px rgba(49,130,206,0.15);
-        }
-
-        .filter-group {
-            display: flex;
-            gap: 7px;
-            flex-wrap: wrap;
-        }
-
-        .fbtn {
-            padding: 9px 15px;
-            border: 2px solid #e2e8f0;
-            border-radius: 7px;
-            cursor: pointer;
-            font-size: 0.88em;
-            font-weight: 600;
-            transition: all 0.25s;
-            background: #f7fafc;
-            color: #4a5568;
-            white-space: nowrap;
-        }
-
-        .fbtn:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-        .fbtn.active { background: #2b6cb0; color: #fff; border-color: #2b6cb0; }
-
-        .fbtn.all  { border-bottom: 3px solid #805ad5; }
-        .fbtn.ar   { border-bottom: 3px solid #e53e3e; }
-        .fbtn.fr   { border-bottom: 3px solid #38a169; }
-        .fbtn.en   { border-bottom: 3px solid #d69e2e; }
-        .fbtn.book { border-bottom: 3px solid #3182ce; }
-        .fbtn.art  { border-bottom: 3px solid #dd6b20; }
-        .fbtn.the  { border-bottom: 3px solid #805ad5; }
-        .fbtn.rep  { border-bottom: 3px solid #2f855a; }
-
-        /* ===== إحصائيات ===== */
-        .stats-bar {
-            background: #e8f4fd;
-            padding: 14px 20px;
-            border-bottom: 1px solid #bee3f8;
-        }
-
-        .stats-inner {
-            max-width: 1250px;
-            margin: 0 auto;
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .stat-box {
-            background: #fff;
-            border-radius: 20px;
-            padding: 7px 20px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.07);
-            text-align: center;
-        }
-
-        .stat-box .num { font-size: 1.5em; font-weight: 800; color: #2b6cb0; }
-        .stat-box .lbl { font-size: 0.8em; color: #718096; }
-
-        .result-count {
-            margin-right: auto;
-            font-size: 0.9em;
-            color: #4a5568;
-            font-weight: 600;
-            background: #fff;
-            padding: 7px 16px;
-            border-radius: 15px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.07);
-        }
-
-        /* ===== المحتوى ===== */
-        .main-wrap {
-            max-width: 1250px;
-            margin: 28px auto;
-            padding: 0 18px;
-        }
-
-        /* ===== شبكة البطاقات ===== */
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 22px;
-        }
-
-        /* ===== البطاقة ===== */
-        .card {
-            background: #ffffff;
-            border-radius: 13px;
-            padding: 22px;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
-            border: 1px solid #e8edf3;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            animation: fadeUp 0.4s ease;
-        }
-
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(12px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0; right: 0;
-            width: 5px;
-            height: 100%;
-            border-radius: 0 13px 13px 0;
-        }
-
-        .card.ar::before { background: linear-gradient(180deg,#e53e3e,#fc8181); }
-        .card.fr::before { background: linear-gradient(180deg,#38a169,#68d391); }
-        .card.en::before { background: linear-gradient(180deg,#d69e2e,#f6e05e); }
-
-        .card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.13);
-        }
-
-        /* شارات أعلى البطاقة */
-        .card-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 10px;
-            flex-wrap: wrap;
-            gap: 6px;
-        }
-
-        .badges { display: flex; gap: 6px; flex-wrap: wrap; }
-
-        .badge {
-            padding: 3px 10px;
-            border-radius: 20px;
-            font-size: 0.76em;
-            font-weight: 700;
-            white-space: nowrap;
-        }
-
-        .b-lang-ar { background:#fed7d7; color:#9b2c2c; }
-        .b-lang-fr { background:#c6f6d5; color:#22543d; }
-        .b-lang-en { background:#fefcbf; color:#7b341e; }
-        .b-book    { background:#ebf8ff; color:#1a365d; }
-        .b-article { background:#fffaf0; color:#7b341e; }
-        .b-thesis  { background:#faf5ff; color:#553c9a; }
-        .b-report  { background:#f0fff4; color:#22543d; }
-        .b-chapter { background:#fff5f5; color:#742a2a; }
-
-        .card-year {
-            font-size: 1em;
-            font-weight: 800;
-            color: #2b6cb0;
-            background: #ebf8ff;
-            padding: 3px 10px;
-            border-radius: 10px;
-        }
-
-        /* عنوان */
-        .card h3 {
-            font-size: 1em;
-            color: #1a202c;
-            margin: 8px 0 7px;
-            line-height: 1.55;
-        }
-
-        /* مؤلف */
-        .card-author {
-            font-size: 0.88em;
-            color: #4a5568;
-            margin-bottom: 4px;
-        }
-
-        .card-author strong { color: #2d3748; }
-
-        /* ميتا */
-        .card-meta {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            font-size: 0.82em;
-            color: #718096;
-            margin: 7px 0;
-            padding: 7px 0;
-            border-top: 1px dashed #e2e8f0;
-            border-bottom: 1px dashed #e2e8f0;
-        }
-
-        /* وصف */
-        .card-desc {
-            font-size: 0.86em;
-            color: #4a5568;
-            line-height: 1.7;
-            margin: 9px 0;
-            flex-grow: 1;
-        }
-
-        /* كلمات مفتاحية */
-        .card-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 5px;
-            margin: 8px 0;
-        }
-
-        .tag {
-            background: #f0f4f8;
-            color: #4a5568;
-            padding: 2px 9px;
-            border-radius: 10px;
-            font-size: 0.76em;
-        }
-
-        /* ذيل البطاقة */
-        .card-footer {
-            margin-top: 12px;
-            padding-top: 11px;
-            border-top: 1px solid #f0f4f8;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .card-publisher {
-            font-size: 0.8em;
-            color: #718096;
-            font-style: italic;
-            flex: 1;
-        }
-
-        .links-group {
-            display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
-        }
-
-        .btn-link {
-            padding: 6px 13px;
-            border-radius: 6px;
-            font-size: 0.8em;
-            font-weight: 700;
-            text-decoration: none;
-            transition: all 0.25s;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            white-space: nowrap;
-        }
-
-        .btn-google  { background:#4285f4; color:#fff; }
-        .btn-google:hover  { background:#3367d6; }
-        .btn-oplib   { background:#e8562a; color:#fff; }
-        .btn-oplib:hover   { background:#c0451e; }
-        .btn-jstor   { background:#8b1a1a; color:#fff; }
-        .btn-jstor:hover   { background:#6b1414; }
-        .btn-scholar { background:#1a73e8; color:#fff; }
-        .btn-scholar:hover { background:#1557b0; }
-        .btn-hal     { background:#e74c3c; color:#fff; }
-        .btn-hal:hover     { background:#c0392b; }
-        .btn-ia      { background:#1b1b1b; color:#fff; }
-        .btn-ia:hover      { background:#333; }
-        .btn-persee  { background:#c0392b; color:#fff; }
-        .btn-persee:hover  { background:#922b21; }
-        .btn-cairn   { background:#2980b9; color:#fff; }
-        .btn-cairn:hover   { background:#1f618d; }
-        .btn-academia{ background:#4267b2; color:#fff; }
-        .btn-academia:hover{ background:#365899; }
-        .btn-ssrn    { background:#1e8449; color:#fff; }
-        .btn-ssrn:hover    { background:#196f3d; }
-
-        /* لا نتائج */
-        .no-results {
-            display: none;
-            text-align: center;
-            padding: 70px 20px;
-            color: #718096;
-        }
-
-        .no-results .icon { font-size: 3em; margin-bottom: 15px; }
-        .no-results h3 { font-size: 1.3em; margin-bottom: 8px; }
-
-        /* فاصل السنة */
-        .year-divider {
-            grid-column: 1 / -1;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin: 10px 0 2px;
-        }
-
-        .year-divider .yr-label {
-            background: linear-gradient(135deg, #2b6cb0, #3182ce);
-            color: white;
-            font-weight: 800;
-            font-size: 1em;
-            padding: 5px 16px;
-            border-radius: 20px;
-            white-space: nowrap;
-            box-shadow: 0 3px 8px rgba(43,108,176,0.35);
-        }
-
-        .year-divider .yr-line {
-            flex: 1;
-            height: 2px;
-            background: linear-gradient(90deg, #bee3f8, transparent);
-            border-radius: 2px;
-        }
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>مرصد الكتب الأزوادي — القضية الأزوادية في شمال مالي</title>
@@ -420,14 +15,6 @@
 }
 body{font-family:'Segoe UI',Tahoma,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh}
 
-        /* ذيل الصفحة */
-        footer {
-            background: #1a365d;
-            color: #a0aec0;
-            text-align: center;
-            padding: 35px 20px;
-            margin-top: 55px;
-        }
 /* ── Hero ── */
 .hero{
   background:linear-gradient(135deg,#0d1117 0%,#0d7377 50%,#14919b 100%);
@@ -453,9 +40,6 @@ body{font-family:'Segoe UI',Tahoma,Arial,sans-serif;background:var(--bg);color:v
   font-weight:700;margin-top:10px;position:relative
 }
 
-        footer p { margin: 5px 0; font-size: 0.88em; }
-        footer strong { color: #fff; }
-        footer .disc { font-size: 0.78em; margin-top: 12px; color: #718096; }
 /* ── Stats ── */
 .stats-bar{
   display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
@@ -468,7 +52,6 @@ body{font-family:'Segoe UI',Tahoma,Arial,sans-serif;background:var(--bg);color:v
 .stat-card .num{font-size:1.7em;font-weight:800}
 .stat-card .lbl{font-size:.78em;color:var(--text2);margin-top:3px}
 
-        .hidden { display: none !important; }
 /* ── Controls ── */
 .controls{
   max-width:1350px;margin:28px auto 0;padding:0 20px;
@@ -520,13 +103,6 @@ select.search-box{flex:none;width:190px}
   display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:20px
 }
 
-        @media (max-width: 768px) {
-            header h1 { font-size: 1.4em; }
-            .cards-grid { grid-template-columns: 1fr; }
-            .search-inner { flex-direction: column; }
-            .fbtn { font-size: 0.82em; padding: 7px 11px; }
-        }
-    </style>
 /* ── Card ── */
 .book-card{
   background:var(--card);border-radius:var(--radius);overflow:hidden;
@@ -604,20 +180,6 @@ footer{text-align:center;padding:30px 20px;font-size:.8em;color:var(--text2);bor
 </head>
 <body>
 
-<div id="progressBar"></div>
-
-<!-- ===== رأس الصفحة ===== -->
-<header>
-    <h1>📚 المكتبة العلمية للقضية الأزوادية</h1>
-    <div class="header-line"></div>
-    <p class="subtitle">
-        مرجع شامل للكتب والمقالات والدراسات العلمية حول منطقة أزواد وشمال مالي<br>
-        <em>Références scientifiques sur la question azawadienne · Scientific References on the Azawad Issue</em>
-    </p>
-    <p style="font-size:0.82em; opacity:0.75; margin-top:8px;">
-        مرتّبة من الأحدث إلى الأقدم · عربي / Français / English
-    </p>
-</header>
 <!-- ══ Hero ══ -->
 <div class="hero">
   <h1>📚 مرصد الكتب الأزوادي</h1>
@@ -631,12 +193,6 @@ footer{text-align:center;padding:30px 20px;font-size:.8em;color:var(--text2);bor
   <div class="hero-badge">⚡ تحديث يومي تلقائي — Google Books · Open Library · OpenAlex</div>
 </div>
 
-<!-- ===== شريط البحث ===== -->
-<div class="search-section">
-    <div class="search-inner">
-        <input type="text" class="search-input" id="searchInput"
-               placeholder="🔍  ابحث بالعنوان أو المؤلف أو الكلمة المفتاحية…"
-               oninput="applyFilters()">
 <!-- ══ Stats ══ -->
 <div class="stats-bar" id="statsBar">
   <div class="stat-card"><div class="num" id="totalCount">-</div><div class="lbl">📚 إجمالي الكتب</div></div>
@@ -647,12 +203,6 @@ footer{text-align:center;padding:30px 20px;font-size:.8em;color:var(--text2);bor
   <div class="stat-card"><div class="num" id="pubCount">-</div><div class="lbl">🏛️ الناشرون</div></div>
 </div>
 
-        <div class="filter-group" id="langFilters">
-            <button class="fbtn all active" onclick="setLang('all',this)">🌐 الكل</button>
-            <button class="fbtn ar"  onclick="setLang('ar',this)">🇸🇦 عربي</button>
-            <button class="fbtn fr"  onclick="setLang('fr',this)">🇫🇷 Français</button>
-            <button class="fbtn en"  onclick="setLang('en',this)">🇬🇧 English</button>
-        </div>
 <!-- ══ Controls ══ -->
 <div class="controls">
   <input type="text" class="search-box" id="searchInput"
@@ -684,13 +234,6 @@ footer{text-align:center;padding:30px 20px;font-size:.8em;color:var(--text2);bor
   </select>
 </div>
 
-        <div class="filter-group" id="typeFilters">
-            <button class="fbtn book" onclick="setType('book',this)">📖 كتب</button>
-            <button class="fbtn art"  onclick="setType('article',this)">📄 مقالات</button>
-            <button class="fbtn the"  onclick="setType('thesis',this)">🎓 أطروحات</button>
-            <button class="fbtn rep"  onclick="setType('report',this)">📊 تقارير</button>
-        </div>
-    </div>
 <!-- ══ Update bar ══ -->
 <div class="update-bar">
   <div class="live"><span class="live-dot"></span>تحديث يومي تلقائي</div>
@@ -698,33 +241,12 @@ footer{text-align:center;padding:30px 20px;font-size:.8em;color:var(--text2);bor
   <button class="refresh-btn" id="refreshBtn" onclick="manualRefresh()">🔄 تحديث الآن</button>
 </div>
 
-<!-- ===== إحصائيات ===== -->
-<div class="stats-bar">
-    <div class="stats-inner">
-        <div class="stat-box"><div class="num" id="cAll">0</div><div class="lbl">📚 إجمالي</div></div>
-        <div class="stat-box"><div class="num" id="cAr">0</div><div class="lbl">🇸🇦 عربي</div></div>
-        <div class="stat-box"><div class="num" id="cFr">0</div><div class="lbl">🇫🇷 Français</div></div>
-        <div class="stat-box"><div class="num" id="cEn">0</div><div class="lbl">🇬🇧 English</div></div>
-        <div class="stat-box"><div class="num" id="cBook">0</div><div class="lbl">📖 كتب</div></div>
-        <div class="stat-box"><div class="num" id="cArt">0</div><div class="lbl">📄 مقالات</div></div>
-        <div class="stat-box"><div class="num" id="cThe">0</div><div class="lbl">🎓 أطروحات</div></div>
-        <div class="stat-box"><div class="num" id="cRep">0</div><div class="lbl">📊 تقارير</div></div>
-        <div class="result-count" id="resultCount">عرض كل المصادر</div>
-    </div>
 <!-- ══ Progress ══ -->
 <div class="progress-bar" id="progressBar" style="display:none">
   <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
   <div class="progress-text" id="progressText">جارٍ الجلب من المصادر...</div>
 </div>
 
-<!-- ===== المحتوى ===== -->
-<div class="main-wrap">
-    <div class="no-results" id="noResults">
-        <div class="icon">😕</div>
-        <h3>لم تُعثر على نتائج</h3>
-        <p>حاول تغيير كلمات البحث أو إزالة الفلتر</p>
-    </div>
-    <div class="cards-grid" id="cardsGrid"></div>
 <!-- ══ Grid ══ -->
 <div class="books-grid" id="booksGrid">
   <div class="loader"><div class="spinner"></div><p>جارٍ جلب الكتب حول القضية الأزوادية...</p></div>
@@ -732,14 +254,6 @@ footer{text-align:center;padding:30px 20px;font-size:.8em;color:var(--text2);bor
 
 <!-- ══ Footer ══ -->
 <footer>
-    <p><strong>📚 المكتبة العلمية للقضية الأزوادية في شمال مالي</strong></p>
-    <p>تجميع أكاديمي للمصادر العلمية باللغات العربية والفرنسية والإنجليزية · مرتّبة من الأحدث إلى الأقدم</p>
-    <p class="disc">
-        ⚠️ الروابط الخارجية تُحيل إلى مصادر عامة (Google Books · Open Library · Internet Archive · Google Scholar · JSTOR · Persée · HAL · Cairn).
-        بعض المحتوى قد يتطلب اشتراكاً أو يكون محدوداً حسب المنطقة الجغرافية.
-        هذه الصفحة للأغراض الأكاديمية والبحثية فقط.
-    </p>
-    <p style="margin-top:10px; font-size:0.8em;">آخر تحديث: 2024</p>
   <p><strong>مرصد الكتب الأزوادي</strong> © 2024–2025</p>
   <p>يجمع تلقائياً من Google Books، Open Library، OpenAlex، Crossref، DOAB وغيرها</p>
   <p style="margin-top:6px;font-size:.76em;color:#999">
@@ -749,17 +263,7 @@ footer{text-align:center;padding:30px 20px;font-size:.8em;color:var(--text2);bor
   <div class="sources-list" id="sourcesList"></div>
 </footer>
 
-<!-- ================================================================
-     JavaScript — البيانات والمنطق
-================================================================ -->
 <script>
-/* ============================================================
-   قاعدة البيانات  — مرتّبة من الأحدث إلى الأقدم
-   كل مصدر:
-     id, year, lang, type, title, author, source, pages, desc, tags,
-     publisher, links: [{label, url, cls}]
-============================================================ */
-const REFS = [
 /* ══════════════════════════════════════════════════════════
    المحرك الأزوادي المتخصص
    مصادر: Google Books API + Open Library API + OpenAlex API
@@ -882,612 +386,6 @@ function detectLang(text) {
   return 'en';
 }
 
-  /* ──────── 2024 ──────── */
-  {
-    id:1, year:2024, lang:"en", type:"report",
-    title:"Mali: Humanitarian Situation Report 2024",
-    author:"OCHA Mali",
-    source:"UN Office for the Coordination of Humanitarian Affairs",
-    pages:"Rapport annuel",
-    desc:"Comprehensive UN humanitarian report documenting the displacement, food insecurity, and protection crises affecting populations in northern Mali including the Azawad region. Covers IDP statistics, humanitarian access, and funding gaps.",
-    tags:["Humanitarian","OCHA","IDP","2024","Mali"],
-    publisher:"United Nations OCHA",
-    links:[
-      {label:"🌐 OCHA Relief Web", url:"https://reliefweb.int/country/mli", cls:"btn-scholar"},
-      {label:"📄 ReliefWeb Reports", url:"https://reliefweb.int/updates?search=mali+azawad", cls:"btn-google"}
-    ]
-  },
-  {
-    id:2, year:2024, lang:"fr", type:"report",
-    title:"Mali : Rapport annuel sur les droits de l'homme 2024",
-    author:"Amnesty International",
-    source:"Amnesty International",
-    pages:"Rapport annuel",
-    desc:"Rapport documentant les violations des droits de l'homme au Mali en 2024, notamment dans le nord du pays, incluant les exactions des forces armées maliennes, du groupe Wagner/Africa Corps, et des groupes armés non étatiques.",
-    tags:["Droits humains","Amnesty","2024","Wagner","Nord Mali"],
-    publisher:"Amnesty International",
-    links:[
-      {label:"🌐 Amnesty.org", url:"https://www.amnesty.org/fr/location/africa/west-and-central-africa/mali/report-mali/", cls:"btn-hal"},
-      {label:"📄 ReliefWeb", url:"https://reliefweb.int/report/mali/mali-2024", cls:"btn-scholar"}
-    ]
-  },
-  {
-    id:3, year:2023, lang:"en", type:"report",
-    title:"Mali: Human Rights Developments 2023",
-    author:"Human Rights Watch",
-    source:"Human Rights Watch World Report 2023",
-    pages:"Annual Report",
-    desc:"Documents serious human rights violations by all parties to the conflict in northern Mali, including abuses by Malian armed forces and associated Russian paramilitary forces, Tuareg armed groups, and jihadist organizations.",
-    tags:["Human Rights","HRW","2023","Wagner","Armed groups"],
-    publisher:"Human Rights Watch",
-    links:[
-      {label:"🌐 HRW.org", url:"https://www.hrw.org/world-report/2023/country-chapters/mali", cls:"btn-scholar"},
-      {label:"📄 Full PDF", url:"https://www.hrw.org/sites/default/files/media_2023/01/World%20Report%202023%20web.pdf", cls:"btn-google"}
-    ]
-  },
-  {
-    id:4, year:2023, lang:"fr", type:"article",
-    title:"Le retrait de la MINUSMA et ses conséquences pour le nord du Mali",
-    author:"International Crisis Group",
-    source:"Briefing Afrique n°183, ICG",
-    pages:"Briefing",
-    desc:"Analyse des implications sécuritaires et politiques du retrait de la MINUSMA du Mali décidé en 2023, et de ses conséquences pour les populations du nord, notamment la question azawadienne et les mouvements armés signataires.",
-    tags:["MINUSMA","Retrait","2023","Sécurité","Nord Mali"],
-    publisher:"International Crisis Group",
-    links:[
-      {label:"🌐 Crisis Group", url:"https://www.crisisgroup.org/africa/sahel/mali", cls:"btn-cairn"},
-      {label:"📄 Rapport ICG", url:"https://www.crisisgroup.org/africa/sahel/mali/b183-malis-transition-toward-an-uncertain-future", cls:"btn-scholar"}
-    ]
-  },
-  {
-    id:5, year:2022, lang:"fr", type:"article",
-    title:"Le groupe Wagner au Mali : présence, actions et implications pour le conflit azawadien",
-    author:"Wassim Nasr & Héni Nsaibia",
-    source:"ACLED / France 24 Observers",
-    pages:"Note d'analyse",
-    desc:"Analyse approfondie de l'implantation du groupe paramilitaire russe Wagner au Mali à partir de 2021, ses opérations dans le nord du pays, et les répercussions sur l'équilibre des forces entre l'armée malienne et les mouvements armés azawadiens.",
-    tags:["Wagner","Russie","Mali","2022","Géopolitique","Azawad"],
-    publisher:"ACLED / France 24",
-    links:[
-      {label:"🌐 ACLED", url:"https://acleddata.com/2022/10/18/wagner-group-in-mali/", cls:"btn-scholar"},
-      {label:"🌐 France 24", url:"https://observers.france24.com/fr/afrique/", cls:"btn-cairn"}
-    ]
-  },
-  {
-    id:6, year:2022, lang:"en", type:"article",
-    title:"The Azawad Conflict: From Rebellion to Regional Proxy War (2012–2022)",
-    author:"Yvan Guichaoua",
-    source:"African Security Review, Vol. 31, No. 2",
-    pages:"pp. 115–134",
-    desc:"A decade retrospective on the Azawad conflict, tracing its evolution from a Tuareg rebellion to a complex multi-actor conflict involving jihadist groups, regional powers, and international interveners, with analysis of why political solutions have failed.",
-    tags:["Azawad","Conflict","Decade review","2022","Armed groups"],
-    publisher:"Taylor & Francis / African Security Review",
-    links:[
-      {label:"🔍 Google Scholar", url:"https://scholar.google.com/scholar?q=Azawad+conflict+Guichaoua+2022", cls:"btn-scholar"},
-      {label:"📄 Taylor & Francis", url:"https://www.tandfonline.com/journals/rasr20", cls:"btn-jstor"}
-    ]
-  },
-  {
-    id:7, year:2021, lang:"ar", type:"article",
-    title:"مستقبل القضية الأزوادية في ضوء التحولات الجيوسياسية في منطقة الساحل",
-    author:"د. محمد ولد أباه",
-    source:"مجلة الدراسات الأفريقية وحوض النيل، العدد 12",
-    pages:"ص. 45–78",
-    desc:"مقالة تحليلية ترصد انعكاسات التحولات الجيوسياسية الكبرى في منطقة الساحل — من الانقلابات العسكرية إلى تصاعد النفوذ الروسي — على مآلات القضية الأزوادية ومستقبل اتفاقية الجزائر.",
-    tags:["أزواد","الساحل","جيوسياسة","2021","مستقبل"],
-    publisher:"مجلة الدراسات الأفريقية وحوض النيل",
-    links:[
-      {label:"🔍 Google Scholar", url:"https://scholar.google.com/scholar?q=القضية+الأزوادية+الساحل+2021", cls:"btn-scholar"},
-      {label:"🔍 Academia.edu", url:"https://www.academia.edu/search?q=azawad+sahel", cls:"btn-academia"}
-    ]
-  },
-  {
-    id:8, year:2021, lang:"fr", type:"article",
-    title:"Mali : peut-on encore sauver l'accord d'Alger ?",
-    author:"International Crisis Group",
-    source:"Rapport Afrique n°296, ICG",
-    pages:"Rapport",
-    desc:"Bilan critique de l'accord de paix de 2015 après six ans de mise en œuvre difficile, identifiant les facteurs de blocage et proposant des recommandations pour relancer le processus de réconciliation entre Bamako et les mouvements armés du nord.",
-    tags:["Accord Alger","2021","Processus de paix","Réconciliation","CMA"],
-    publisher:"International Crisis Group",
-    links:[
-      {label:"🌐 Crisis Group", url:"https://www.crisisgroup.org/africa/sahel/mali/296-mali-can-algiers-agreement-be-saved", cls:"btn-cairn"},
-      {label:"📥 Télécharger PDF", url:"https://www.crisisgroup.org/sites/default/files/296-mali-algiers-agreement.pdf", cls:"btn-scholar"}
-    ]
-  },
-  {
-    id:9, year:2020, lang:"fr", type:"thesis",
-    title:"Décentralisation et gouvernance locale au nord Mali : entre réformes institutionnelles et réalités territoriales",
-    author:"Moussa Coulibaly",
-    source:"Université de Bordeaux, Thèse de doctorat en Science politique",
-    pages:"445 p.",
-    desc:"Thèse examinant les politiques de décentralisation au Mali et leur impact sur les régions du nord. Analyse l'écart entre les réformes institutionnelles promises depuis 1991 et les attentes des populations du nord, dont la communauté azawadienne.",
-    tags:["Décentralisation","Gouvernance","Nord Mali","Collectivités","Azawad"],
-    publisher:"Université de Bordeaux",
-    links:[
-      {label:"🔍 Google Scholar", url:"https://scholar.google.com/scholar?q=Décentralisation+gouvernance+nord+Mali+Coulibaly+2020", cls:"btn-scholar"},
-      {label:"🎓 HAL Thèses", url:"https://theses.hal.science/search/index/?q=mali+azawad&rows=30", cls:"btn-hal"}
-    ]
-  },
-  {
-    id:10, year:2020, lang:"en", type:"article",
-    title:"MINUSMA and the Challenge of Peacekeeping in an Active Conflict: The Mali Experience",
-    author:"Linnea Gelot & Sandra Smis",
-    source:"International Peacekeeping, Vol. 27, No. 3, pp. 401–432",
-    pages:"pp. 401–432",
-    desc:"Academic evaluation of MINUSMA's peacekeeping mandate in Mali, analyzing the mission's operational limitations, civilian protection record, challenges of operating in an active conflict environment, and impact on political dynamics.",
-    tags:["MINUSMA","UN Peacekeeping","Mali","Civilian protection","2020"],
-    publisher:"Routledge / Taylor & Francis",
-    links:[
-      {label:"🔍 Google Scholar", url:"https://scholar.google.com/scholar?q=MINUSMA+peacekeeping+Mali+Gelot+2020", cls:"btn-scholar"},
-      {label:"📄 Taylor & Francis", url:"https://www.tandfonline.com/doi/abs/10.1080/13533312.2019.1686028", cls:"btn-jstor"}
-    ]
-  },
-  {
-    id:11, year:2019, lang:"ar", type:"thesis",
-    title:"ظاهرة فشل الدولة في الساحل الأفريقي: مالي أنموذجاً",
-    author:"عبد الرحمن ولد أحمد لمين",
-    source:"جامعة الجزائر، كلية العلوم السياسية والعلاقات الدولية، رسالة دكتوراه",
-    pages:"520 ص.",
-    desc:"أطروحة دكتوراه تُشرّح ظاهرة فشل الدولة المالية وانعكاساتها على الأزمة الأزوادية، مع مقاربة مقارنة لتجارب دول الساحل الأخرى (النيجر، موريتانيا، بوركينا فاصو).",
-    tags:["فشل الدولة","مالي","الساحل","الحوكمة","الديمقراطية"],
-    publisher:"جامعة الجزائر",
-    links:[
-      {label:"🔍 Google Scholar", url:"https://scholar.google.com/scholar?q=فشل+الدولة+الساحل+مالي+أطروحة", cls:"btn-scholar"},
-      {label:"🎓 PNST Algérie", url:"https://www.pnst.cerist.dz/detail.php?idoc=62340", cls:"btn-hal"}
-    ]
-  },
-  {
-    id:12, year:2019, lang:"fr", type:"article",
-    title:"La MINUSMA face au défi sécuritaire dans le nord du Mali : limites et perspectives",
-    author:"Thierry Vircoulon",
-    source:"Notes de l'IFRI, Paris, octobre 2019",
-    pages:"Notes d'analyse",
-    desc:"Évaluation du rôle et des limites de la MINUSMA dans la gestion du conflit azawadien et la protection des populations civiles, avec des recommandations pour améliorer l'efficacité opérationnelle de la mission onusienne.",
-    tags:["MINUSMA","ONU","Maintien de la paix","Stabilisation","IFRI"],
-    publisher:"IFRI, Paris",
-    links:[
-      {label:"🌐 IFRI", url:"https://www.ifri.org/fr/publications?field_topics_target_id=All&field_regions_target_id=55", cls:"btn-cairn"},
-      {label:"🔍 Google Scholar", url:"https://scholar.google.com/scholar?q=MINUSMA+Vircoulon+IFRI+2019", cls:"btn-scholar"}
-    ]
-  },
-  {
-    id:13, year:2019, lang:"ar", type:"book",
-    title:"إدارة النزاعات المسلحة في أفريقيا جنوب الصحراء الكبرى: حالة مالي",
-    author:"د. محمد السيد سليم",
-    source:"مركز الدراسات السياسية والاستراتيجية",
-    pages:"350 ص.",
-    desc:"دراسة مقارنة في آليات إدارة النزاعات الأفريقية تأخذ من الحالة المالية-الأزوادية نموذجاً تحليلياً لفهم ديناميكيات الصراع وسبل التسوية في إطار الاتحاد الأفريقي والمجموعة الاقتصادية لدول غرب أفريقيا.",
-    tags:["إدارة النزاعات","الاتحاد الأفريقي","ECOWAS","مالي","الوساطة"],
-    publisher:"مركز الدراسات السياسية والاستراتيجية، القاهرة",
-    links:[
-      {label:"🔍 Google Scholar", url:"https://scholar.google.com/scholar?q=إدارة+النزاعات+أفريقيا+مالي", cls:"btn-scholar"},
-      {label:"📚 Open Library", url:"https://openlibrary.org/search?q=mali+conflict+management&language=arabic", cls:"btn-oplib"}
-    ]
-  },
-  {
-    id:14, year:2018, lang:"en", type:"thesis",
-    title:"Azawad's Claim to Self-Determination: A Critical Analysis under Contemporary International Law",
-    author:"Amina Wane",
-    source:"University of Edinburgh, School of Law, LLM Dissertation",
-    pages:"145 p.",
-    desc:"An LLM dissertation examining the legal basis of Azawad's claim to self-determination under international law, comparing it with precedents such as Kosovo, South Sudan, and Catalonia within the framework of UN resolutions and the African Union Constitutive Act.",
-    tags:["Self-determination","International Law","Secession","Kosovo","South Sudan"],
-    publisher:"University of Edinburgh",
-    links:[
-      {label:"🔍 Google Scholar", url:"https://scholar.google.com/scholar?q=Azawad+self-determination+international+law", cls:"btn-scholar"},
-      {label:"🎓 EThOS UK", url:"https://ethos.bl.uk/SearchResults.do?query=azawad+mali", cls:"btn-jstor"}
-    ]
-  },
-  {
-    id:15, year:2018, lang:"ar", type:"book",
-    title:"أزواد: الهوية والأرض والمصير — دراسة في جذور النزاع",
-    author:"د. محمد الأمين ولد محمد",
-    source:"دار الخليج للنشر والتوزيع",
-    pages:"280 ص.",
-    desc:"دراسة تحليلية معمقة تتناول جذور النزاع في منطقة أزواد من منظور تاريخي وجغرافي وإثني، مع تسليط الضوء على هوية الطوارق وحقوقهم السياسية ضمن الدولة المالية منذ الاستقلال حتى اليوم.",
-    tags:["أزواد","الطوارق","الهوية","النزاع","شمال مالي"],
-    publisher:"دار الخليج للنشر والتوزيع",
-    links:[
-      {label:"🔍 Google Scholar", url:"https://scholar.google.com/scholar?q=أزواد+الهوية+الأرض+المصير", cls:"btn-scholar"},
-      {label:"📚 Open Library", url:"https://openlibrary.org/search?q=azawad+tuareg&language=arabic", cls:"btn-oplib"}
-    ]
-  },
-  {
-    id:16, year:2017, lang:"fr", type:"thesis",
-    title:"Le droit à l'autodétermination des peuples : le cas de l'Azawad au regard du droit international",
-    author:"Aïssata Maïga",
-    source:"Université Paris I Panthéon-Sorbonne, Thèse de doctorat en droit",
-    pages:"490 p.",
-    desc:"Thèse de droit international examinant la légitimité de la revendication d'autodétermination de l'Azawad à la lumière du droit international contemporain, de la jurisprudence de la CIJ, et des précédents comme le Kosovo et le Timor oriental.",
-    tags:["Autodétermination","Droit international","Sécession","ONU","CIJ"],
-    publisher:"Université Paris I Panthéon-Sorbonne",
-    links:[
-      {label:"🔍 Google Scholar", url:"https://scholar.google.com/scholar?q=autodetermination+Azawad+Maïga+Sorbonne", cls:"btn-scholar"},
-      {label:"🎓 HAL Thèses", url:"https://theses.hal.science/search/index/?q=Azawad+autodetermination", cls:"btn-hal"},
-      {label:"🌐 theses.fr", url:"https://www.theses.fr/recherche/?q=mali+azawad", cls:"btn-cairn"}
-    ]
-  },
-  {
-    id:17, year:2017, lang:"en", type:"article",
-    title:"The Algiers Peace Agreement and Its Aftermath: Challenges to Stabilization in Northern Mali",
-    author:"Arthur Boutellis & Paul Williams",
-    source:"Journal of African Security, Vol. 10, No. 3–4, pp. 1–24",
-    pages:"pp. 1–24",
-    desc:"A critical assessment of the 2015 Algiers Peace Agreement's implementation, examining structural challenges, spoiler dynamics among armed groups, and the role of international actors in sustaining the fragile peace process.",
-    tags:["Algiers Agreement","Peace process","Stabilization","Armed groups","MNLA"],
-    publisher:"Journal of African Security / Taylor & Francis",
-    links:[
-      {label:"🔍 Google Scholar", url:"https://scholar.google.com/scholar?q=Algiers+Peace+Agreement+Mali+Boutellis+Williams", cls:"btn-scholar"},
-      {label:"📄 Taylor & Francis", url:"https://www.tandfonline.com/doi/full/10.1080/19392206.2017.1353923", cls:"btn-jstor"}
-    ]
-  },
-  {
-    id:18, year:2016, lang:"ar", type:"thesis",
-    title:"مطلب تقرير المصير في منطقة أزواد في إطار القانون الدولي",
-    author:"فاطمة الزهراء التمبكتي",
-    source:"جامعة محمد الخامس، الرباط، كلية العلوم القانونية، رسالة ماجستير",
-    pages:"220 ص.",
-    desc:"دراسة قانونية أكاديمية تبحث في مدى انطباق مبدأ تقرير المصير على حالة أزواد في ضوء أحكام القانون الدولي والسوابق المقارنة (كوسوفو، تيمور الشرقية، جنوب السودان).",
-    tags:["القانون الدولي","تقرير المصير","الأقليات","أزواد","الأمم المتحدة"],
-    publisher:"جامعة محمد الخامس، الرباط",
-    links:[
-      {label:"🔍 Google Scholar", url:"https://scholar.google.com/scholar?q=تقرير+المصير+أزواد+القانون+الدولي", cls:"btn-scholar"},
-      {label:"🌐 IMIST Maroc", url:"https://www.imist.ma/", cls:"btn-hal"}
-    ]
-  },
-  {
-    id:19, year:2016, lang:"ar", type:"article",
-    title:"اتفاقية الجزائر 2015 وآفاق السلام في شمال مالي",
-    author:"د. نورة بن غبريت",
-    source:"مجلة الدراسات الأفريقية، العدد 35، القاهرة",
-    pages:"ص. 112–145",
-    desc:"قراءة نقدية في بنود اتفاقية السلام والمصالحة في مالي المُبرمة بالجزائر عام 2015، وتقييم مدى قدرتها على معالجة الأسباب الجذرية للنزاع الأزوادي وتحقيق المصالحة الوطنية.",
-    tags:["اتفاقية السلام","الجزائر","الوساطة","2015","المصالحة الوطنية"],
-    publisher:"مجلة الدراسات الأفريقية، القاهرة",
-    links:[
-      {label:"🔍 Google Scholar", url:"https://scholar.google.com/scholar?q=اتفاقية+الجزائر+2015+مالي", cls:"btn-scholar"},
-      {label:"🌐 المنهل", url:"https://www.almanhj.net/", cls:"btn-academia"}
-    ]
-  },
-  {
-    id:20, year:2016, lang:"fr", type:"article",
-    title:"L'Accord d'Alger de 2015 : entre ambitions de paix et blocages structurels",
-    author:"International Crisis Group",
-    source:"Rapport Afrique n°244, International Crisis Group",
-    pages:"Rapport complet",
-    desc:"Analyse approfondie des difficultés de mise en œuvre de l'Accord pour la paix et la réconciliation au Mali issu du processus d'Alger, identifiant les obstacles politiques, institutionnels et sécuritaires à son application.",
-    tags:["Accord d'Alger","Réconciliation","DDR","Processus de paix","2016"],
-    publisher:"International Crisis Group",
-    links:[
-      {label:"🌐 Crisis Group", url:"https://www.crisisgroup.org/africa/sahel/mali/244-mali-peace-agreement-not-enough", cls:"btn-cairn"},
-      {label:"📥 PDF Rapport", url:"https://d2071andvip0wj.cloudfront.net/244-mali-peace-agreement-not-enough.pdf", cls:"btn-scholar"}
-    ]
-  },
-  {
-    id:21, year:2015, lang:"fr", type:"article",
-    title:"Femmes touarègues et conflit armé : entre victimisation et agentivité",
-    author:"Hélène Claudot-Hawad",
-    source:"Revue Tiers Monde, n°224, pp. 45–68",
-    pages:"pp. 45–68",
-    desc:"Étude sur le rôle des femmes touarègues dans les conflits armés du nord Mali, entre victimes de violences et actrices actives dans les processus de résistance culturelle et de maintien de la cohésion sociale.",
-    tags:["Genre","Femmes touarègues","Conflit armé","Société","Culture"],
-    publisher:"Revue Tiers Monde / Armand Colin",
-    links:[
-      {label:"🌐 Cairn.info", url:"https://www.cairn.info/revue-tiers-monde.htm", cls:"btn-cairn"},
-      {label:"🔍 Google Scholar", url:"https://scholar.google.com/scholar?q=femmes+touarègues+conflit+Claudot-Hawad", cls:"btn-scholar"},
-      {label:"🌐 Persée", url:"https://www.persee.fr/search?q=touareg+mali&ta=article", cls:"btn-persee"}
-    ]
-  },
-  {
-    id:22, year:2015, lang:"ar", type:"book",
-    title:"الساحل الأفريقي: بؤرة الإرهاب وأزمة شمال مالي",
-    author:"د. عبد الله بلقزيز",
-    source:"مركز دراسات الوحدة العربية",
-    pages:"310 ص.",
-    desc:"يتناول الكتاب الربط بين أزمة شمال مالي والظاهرة الإرهابية في منطقة الساحل الأفريقي، ويحلل دور الجماعات الجهادية في استغلال النزاع الأزوادي وتهديد الاستقرار الإقليمي.",
-    tags:["الساحل الأفريقي","الإرهاب","AQMI","الأمن الإقليمي","الجهاديون"],
-    publisher:"مركز دراسات الوحدة العربية، بيروت",
-    links:[
-      {label:"🔍 Google Scholar", url:"https://scholar.google.com/scholar?q=الساحل+الأفريقي+الإرهاب+مالي+بلقزيز", cls:"btn-scholar"},
-      {label:"📚 مركز الوحدة العربية", url:"https://www.caus.org.lb/", cls:"btn-academia"}
-    ]
-  },
-  {
-    id:23, year:2014, lang:"ar", type:"article",
-    title:"التدخل العسكري الفرنسي في مالي: دراسة في الأهداف والتداعيات الإقليمية",
-    author:"د. رضا هلال",
-    source:"مجلة السياسة الدولية، العدد 197، القاهرة",
-    pages:"ص. 78–102",
-    desc:"تحليل نقدي لعملية سيرفال الفرنسية عام 2013 في شمال مالي، وقراءة في الأهداف الحقيقية للتدخل — النفوذ الاستراتيجي، الموارد الطبيعية، مكافحة الإرهاب — وأثره على مسار التسوية السياسية للقضية الأزوادية.",
-    tags:["عملية سيرفال","فرنسا وأفريقيا","التدخل العسكري","2013","مالي"],
-    publisher:"مجلة السياسة الدولية، مؤسسة الأهرام",
-    links:[
-      {label:"🔍 Google Scholar", url:"https://scholar.google.com/scholar?q=التدخل+الفرنسي+مالي+سيرفال", cls:"btn-scholar"},
-      {label:"🌐 مجلة السياسة الدولية", url:"https://www.siyassa.org.eg/", cls:"btn-academia"}
-    ]
-  },
-  {
-    id:24, year:2014, lang:"fr", type:"article",
-    title:"L'opération Serval au Mali : succès militaire, impasse politique",
-    author:"François Gèze & Salima Mellah",
-    source:"Revue Hérodote, n°152–153, La Découverte",
-    pages:"pp. 23–48",
-    desc:"Évaluation critique de l'intervention militaire française au Mali (janvier 2013), soulignant le contraste entre les résultats militaires immédiats et l'absence de règlement politique durable de la question azawadienne.",
-    tags:["Opération Serval","France-Mali","Intervention militaire","2013","Azawad"],
-    publisher:"Revue Hérodote / La Découverte",
-    links:[
-      {label:"🌐 Cairn.info", url:"https://www.cairn.info/revue-herodote-2014-1.htm", cls:"btn-cairn"},
-      {label:"🔍 Google Scholar", url:"https://scholar.google.com/scholar?q=opération+Serval+Mali+succès+militaire+impasse", cls:"btn-scholar"},
-      {label:"🌐 Persée", url:"https://www.persee.fr/search?q=mali+intervention&ta=article", cls:"btn-persee"}
-    ]
-  },
-  {
-    id:25, year:2014, lang:"ar", type:"book",
-    title:"أزواد: الهوية والأرض والمصير — دراسة في جذور النزاع",
-    author:"د. محمد الأمين ولد محمد",
-    source:"دار الخليج للنشر والتوزيع، الشارقة",
-    pages:"280 ص.",
-    desc:"دراسة تحليلية معمقة تتناول جذور النزاع في منطقة أزواد من منظور تاريخي وجغرافي وإثني، مع تسليط الضوء على هوية الطوارق وحقوقهم السياسية ضمن الدولة المالية.",
-    tags:["أزواد","الطوارق","الهوية الأمازيغية","النزاع","شمال مالي"],
-    publisher:"دار الخليج للنشر والتوزيع",
-    links:[
-      {label:"🔍 Google Scholar", url:"https://scholar.google.com/scholar?q=أزواد+الهوية+والأرض+والمصير", cls:"btn-scholar"},
-      {label:"📚 Open Library", url:"https://openlibrary.org/search?q=azawad+mali+arabic", cls:"btn-oplib"}
-    ]
-  },
-  {
-    id:26, year:2013, lang:"ar", type:"report",
-    title:"الأزمة الإنسانية في شمال مالي: واقع النازحين والمهجَّرين الأزواديين 2012-2013",
-    author:"فريق المرصد العربي لحقوق الإنسان",
-    source:"المرصد العربي لحقوق الإنسان، القاهرة",
-    pages:"تقرير ميداني، 85 ص.",
-    desc:"تقرير ميداني يرصد الأوضاع الإنسانية للسكان الأزواديين إثر الأحداث المسلحة عام 2012، ويوثق انتهاكات حقوق الإنسان ومعاناة المدنيين في مناطق غاو وتمبكتو وكيدال.",
-    tags:["حقوق الإنسان","اللاجئون","النزوح","الأزمة الإنسانية","2012"],
-    publisher:"المرصد العربي لحقوق الإنسان، القاهرة",
-    links:[
-      {label:"🔍 Google Scholar", url:"https://scholar.google.com/scholar?q=أزمة+إنسانية+مالي+2012+نازحون", cls:"btn-scholar"},
-      {label:"🌐 ReliefWeb", url:"https://reliefweb.int/search?search=mali+azawad+humanitarian+2013", cls:"btn-cairn"}
-    ]
-  },
-  {
-    id:27, year:2013, lang:"fr", type:"book",
-    title:"Le Sahel : entre développement et sécurité",
-    author:"Jean-Pierre Olivier de Sardan",
-    source:"Éditions du Seuil, Paris",
-    pages:"290 p.",
-    desc:"Lecture géopolitique et anthropologique du Sahel comme espace de tensions entre États fragiles, groupes armés et puissances extérieures, avec un focus sur le Mali post-2012 et la question azawadienne.",
-    tags:["Géopolitique","Sahel","États fragiles","Anthropologie","Mali"],
-    publisher:"Éditions du Seuil, Paris",
-    links:[
-      {label:"🔍 Google Scholar", url:"https://scholar.google.com/scholar?q=Sahel+sécurité+développement+Olivier+Sardan", cls:"btn-scholar"},
-      {label:"📚 Open Library", url:"https://openlibrary.org/search?q=sahel+mali+securite", cls:"btn-oplib"},
-      {label:"🌐 Cairn.info", url:"https://www.cairn.info/publications-de-Jean-Pierre-Olivier-de-Sardan--22455.htm", cls:"btn-cairn"}
-    ]
-  },
-  {
-    id:28, year:2013, lang:"en", type:"book",
-    title:"The Jihad Next Door: The Roots of Radicalism in the Sahel",
-    author:"Frederic Wehrey & Anouar Boukhars",
-    source:"Carnegie Endowment for International Peace, Washington D.C.",
-    pages:"280 p.",
-    desc:"An in-depth study examining the conditions that gave rise to jihadist movements in the Sahel, with particular attention to the intersection of the Azawad conflict with AQIM and Ansar Dine in northern Mali.",
-    tags:["Jihadism","AQIM","Sahel","Radicalization","Mali"],
-    publisher:"Carnegie Endowment for International Peace",
-    links:[
-      {label:"🔍 Google Scholar", url:"https://scholar.google.com/scholar?q=jihad+sahel+Wehrey+Boukhars+Carnegie", cls:"btn-scholar"},
-      {label:"📚 Internet Archive", url:"https://archive.org/search?query=sahel+jihadism+mali", cls:"btn-ia"},
-      {label:"🌐 Carnegie", url:"https://carnegieendowment.org/regions/middle-east", cls:"btn-jstor"}
-    ]
-  },
-  {
-    id:29, year:2013, lang:"en", type:"article",
-    title:"The Libyan Fallout: How Gaddafi's Collapse Armed the Tuareg Rebellion in Mali",
-    author:"Peter Tinti",
-    source:"Global Post / West Africa Report, 2013",
-    pages:"Article d'investigation",
-    desc:"An investigative analysis of how the fall of the Gaddafi regime in 2011 triggered a massive influx of weapons and Tuareg fighters returning from Libya to Mali, directly fueling the 2012 Azawad uprising and destabilizing the entire Sahel region.",
-    tags:["Libya spillover","Arms proliferation","Regional security","Gaddafi","Tuareg 2012"],
-    publisher:"Global Post",
-    links:[
-      {label:"🔍 Google Scholar", url:"https://scholar.google.com/scholar?q=Libya+Mali+Tuareg+weapons+2012+Tinti", cls:"btn-scholar"},
-      {label:"🌐 SSRN", url:"https://papers.ssrn.com/sol3/results.cfm?RequestTimeout=50000000&q=Libya+Mali+Tuareg&start=0&stype=all", cls:"btn-ssrn"}
-    ]
-  },
-  {
-    id:30, year:2013, lang:"ar", type:"article",
-    title:"تأثير الأزمة الليبية على النزاع في شمال مالي: السلاح والمقاتلون",
-    author:"د. الطاهر التومي",
-    source:"مجلة المستقبل العربي، العدد 410، مركز دراسات الوحدة العربية",
-    pages:"ص. 55–76",
-    desc:"يكشف المقال العلاقة السببية بين انهيار النظام الليبي عام 2011 وتدفق السلاح والمقاتلين الطوارق نحو منطقة أزواد، وكيف أشعل ذلك فتيل انتفاضة 2012 وغيّر موازين القوى.",
-    tags:["ليبيا","تدفق السلاح","الارتداد الإقليمي","أزواد","الطوارق"],
-    publisher:"مجلة المستقبل العربي، مركز دراسات الوحدة العربية",
-    links:[
-      {label:"🔍 Google Scholar", url:"https://scholar.google.com/scholar?q=الأزمة+الليبية+مالي+الطوارق+السلاح", cls:"btn-scholar"},
-      {label:"📚 CAUS", url:"https://www.caus.org.lb/Home/journal.php", cls:"btn-academia"}
-    ]
-  },
-  {
-    id:31, year:2012, lang:"fr", type:"article",
-    title:"La rébellion touarègue et la crise malienne de 2012 : entre séparatisme et djihadisme",
-    author:"Mathieu Pellerin",
-    source:"Politique Étrangère, IFRI, n°3, automne 2012, pp. 567–579",
-    pages:"pp. 567–579",
-    desc:"Analyse des dynamiques de la crise malienne de 2012, distinguant les revendications politiques légitimes du MNLA des ambitions djihadistes d'Ansar Dine et d'AQMI, et évaluant les implications pour la stabilité régionale.",
-    tags:["MNLA","Ansar Dine","AQMI","Azawad 2012","Séparatisme"],
-    publisher:"IFRI — Institut Français des Relations Internationales",
-    links:[
-      {label:"🌐 IFRI", url:"https://www.ifri.org/fr/publications/politique-etrangere", cls:"btn-cairn"},
-      {label:"🌐 Cairn.info", url:"https://www.cairn.info/revue-politique-etrangere-2012-3.htm", cls:"btn-cairn"},
-      {label:"🔍 Google Scholar", url:"https://scholar.google.com/scholar?q=rébellion+touarègue+crise+malienne+2012+Pellerin", cls:"btn-scholar"}
-    ]
-  },
-  {
-    id:32, year:2012, lang:"en", type:"article",
-    title:"State Collapse and the Azawad Crisis: Understanding Mali's 2012 Political Breakdown",
-    author:"Bruce Whitehouse",
-    source:"African Affairs, Vol. 111, No. 444, pp. 451–458",
-    pages:"pp. 451–458",
-    desc:"Academic analysis of how the military coup and political crisis of 2012 led to the collapse of Malian state authority in the north, enabling the MNLA to declare the independent state of Azawad in April 2012.",
-    tags:["State collapse","2012","MNLA","Azawad","African Affairs"],
-    publisher:"African Affairs / Oxford University Press",
-    links:[
-      {label:"🔍 Google Scholar", url:"https://scholar.google.com/scholar?q=State+Collapse+Azawad+Whitehouse+2012+African+Affairs", cls:"btn-scholar"},
-      {label:"📄 Oxford Academic", url:"https://academic.oup.com/afraf/article/111/444/451/61635", cls:"btn-jstor"},
-      {label:"📚 JSTOR", url:"https://www.jstor.org/stable/23250268", cls:"btn-jstor"}
-    ]
-  },
-  {
-    id:33, year:2012, lang:"ar", type:"article",
-    title:"انتفاضة الطوارق 2012: من المطالبة بالحقوق إلى إعلان الاستقلال",
-    author:"د. إبراهيم السيد علي",
-    source:"مجلة شؤون عربية، العدد 153، جامعة الدول العربية",
-    pages:"ص. 34–65",
-    desc:"تحليل شامل للأحداث التي أفضت إلى إعلان دولة أزواد في أبريل 2012، وتداعياتها الإقليمية والدولية، ودور حركة أنصار الدين وتنظيم القاعدة في تعقيد المشهد السياسي والعسكري.",
-    tags:["2012","MNLA","الاستقلال","أنصار الدين","تنظيم القاعدة"],
-    publisher:"مجلة شؤون عربية، جامعة الدول العربية",
-    links:[
-      {label:"🔍 Google Scholar", url:"https://scholar.google.com/scholar?q=انتفاضة+الطوارق+2012+أزواد+الاستقلال", cls:"btn-scholar"},
-      {label:"🌐 جامعة الدول العربية", url:"https://www.lasportal.org/ar/Pages/default.aspx", cls:"btn-academia"}
-    ]
-  },
-  {
-    id:34, year:2011, lang:"fr", type:"book",
-    title:"Les rébellions touarègues 1963–2009 : histoire d'un combat",
-    author:"André Bourgeot",
-    source:"L'Harmattan, Paris",
-    pages:"320 p.",
-    desc:"Chronologie exhaustive des différentes rébellions touarègues de 1963 à 2009, avec analyse des facteurs socio-économiques, politiques et identitaires ayant alimenté ces conflits récurrents au Mali et au Niger.",
-    tags:["Rébellion 1963","Rébellion 1990","Accords de paix","Touaregs","Histoire"],
-    publisher:"L'Harmattan, Paris",
-    links:[
-      {label:"🔍 Google Scholar", url:"https://scholar.google.com/scholar?q=rébellions+touarègues+1963+2009+Bourgeot", cls:"btn-scholar"},
-      {label:"📚 Open Library", url:"https://openlibrary.org/search?q=rebellions+touareg+mali+harmattan", cls:"btn-oplib"},
-      {label:"🌐 L'Harmattan", url:"https://www.editions-harmattan.fr/catalogue/touareg", cls:"btn-cairn"},
-      {label:"🌐 Persée", url:"https://www.persee.fr/search?q=touareg+rébellion&ta=article", cls:"btn-persee"}
-    ]
-  },
-  {
-    id:35, year:2011, lang:"ar", type:"article",
-    title:"الطوارق: الهوية والثقافة والانتماء في منظومة الدولة الأفريقية",
-    author:"د. حسن الطورة",
-    source:"مجلة إفريقيا والشرق، العدد 54، المغرب",
-    pages:"ص. 23–55",
-    desc:"دراسة أنثروبولوجية تستعرض الهوية الثقافية لقبائل الطوارق ومكانتها ضمن دول الساحل وتحدياتها في مواجهة سياسات الدمج القسري منذ استقلال دول المنطقة.",
-    tags:["الأنثروبولوجيا","الثقافة البربرية","الهوية","الطوارق","الساحل"],
-    publisher:"مجلة إفريقيا والشرق، المغرب",
-    links:[
-      {label:"🔍 Google Scholar", url:"https://scholar.google.com/scholar?q=الطوارق+الهوية+الثقافة+أفريقيا", cls:"btn-scholar"},
-      {label:"🌐 Persée (Afrique & Orient)", url:"https://www.persee.fr/search?q=touareg+identite+afrique&ta=article", cls:"btn-persee"}
-    ]
-  },
-  {
-    id:36, year:2010, lang:"fr", type:"book",
-    title:"Tuareg Society within a Globalized World : Saharan Life in Transition",
-    author:"Ines Kohl & Anja Fischer (dir.)",
-    source:"I.B. Tauris, London",
-    pages:"285 p.",
-    desc:"A multidisciplinary collection examining how Tuareg society is adapting to globalization, sedentarization and political marginalization, with particular attention to northern Mali, the Azawad region, and the Niger.",
-    tags:["Tuareg society","Globalization","Nomadism","Cultural change","Azawad"],
-    publisher:"I.B. Tauris, London",
-    links:[
-      {label:"🔍 Google Scholar", url:"https://scholar.google.com/scholar?q=Tuareg+Society+Globalized+World+Kohl+Fischer", cls:"btn-scholar"},
-      {label:"📚 Open Library", url:"https://openlibrary.org/books/OL24370186M/Tuareg_Society_within_a_Globalized_World", cls:"btn-oplib"},
-      {label:"📚 Internet Archive", url:"https://archive.org/search?query=tuareg+society+sahara", cls:"btn-ia"}
-    ]
-  },
-  {
-    id:37, year:2010, lang:"ar", type:"book",
-    title:"تمبكتو: منارة الحضارة الإسلامية في قلب أزواد",
-    author:"الشيخ سيدي محمد تاو",
-    source:"دار الرشاد، الدار البيضاء",
-    pages:"220 ص.",
-    desc:"دراسة تاريخية وحضارية حول مدينة تمبكتو وإرثها العلمي الإسلامي ودورها المحوري في الثقافة الأزوادية، مع تسليط الضوء على مخطوطاتها النفيسة وعلمائها الكبار.",
-    tags:["تمبكتو","التراث الإسلامي","المخطوطات","التاريخ","أزواد"],
-    publisher:"دار الرشاد، الدار البيضاء",
-    links:[
-      {label:"🔍 Google Scholar", url:"https://scholar.google.com/scholar?q=تمبكتو+الحضارة+الإسلامية+أزواد", cls:"btn-scholar"},
-      {label:"📚 Open Library", url:"https://openlibrary.org/search?q=Timbuktu+Islamic+heritage", cls:"btn-oplib"},
-      {label:"📚 Internet Archive", url:"https://archive.org/search?query=timbuktu+manuscripts+mali", cls:"btn-ia"}
-    ]
-  },
-  {
-    id:38, year:2008, lang:"fr", type:"book",
-    title:"Histoire du Mali de l'indépendance à nos jours",
-    author:"Pascal Labazée & Jean-Pierre Chauveau",
-    source:"Éditions Karthala, Paris",
-    pages:"410 p.",
-    desc:"Ouvrage historique retraçant le parcours du Mali depuis son indépendance en 1960, accordant une attention particulière aux enjeux du nord du pays et aux différentes phases de la question azawadienne jusqu'aux années 2000.",
-    tags:["Histoire du Mali","Indépendance 1960","Politique malienne","Nord Mali","Azawad"],
-    publisher:"Éditions Karthala, Paris",
-    links:[
-      {label:"🔍 Google Scholar", url:"https://scholar.google.com/scholar?q=Histoire+Mali+indépendance+Karthala", cls:"btn-scholar"},
-      {label:"📚 Open Library", url:"https://openlibrary.org/search?q=histoire+mali+karthala", cls:"btn-oplib"},
-      {label:"🌐 Karthala", url:"https://www.karthala.com/collections/mali", cls:"btn-cairn"}
-    ]
-  },
-  {
-    id:39, year:2004, lang:"en", type:"book",
-    title:"The Dark Sahara: America's War on Terror in Africa",
-    author:"Jeremy Keenan",
-    source:"Pluto Press, London",
-    pages:"312 p.",
-    desc:"A comprehensive examination of US counterterrorism policy in the Sahara and its impact on the Tuareg people and the Azawad region. Keenan argues that American policy has destabilized the region by conflating Tuareg political grievances with jihadist terrorism.",
-    tags:["US counterterrorism","Sahara","Tuareg","Azawad","GWOT"],
-    publisher:"Pluto Press, London",
-    links:[
-      {label:"🔍 Google Scholar", url:"https://scholar.google.com/scholar?q=Dark+Sahara+America+Terror+Africa+Keenan", cls:"btn-scholar"},
-      {label:"📚 Open Library", url:"https://openlibrary.org/search?q=dark+sahara+keenan+pluto", cls:"btn-oplib"},
-      {label:"📚 Internet Archive", url:"https://archive.org/search?query=Keenan+Sahara+Tuareg", cls:"btn-ia"}
-    ]
-  },
-  {
-    id:40, year:2004, lang:"fr", type:"book",
-    title:"Touaregs : voix solitaires sous l'éternité menacée",
-    author:"Hélène Claudot-Hawad",
-    source:"Éditions de l'Aube / CNRS, Paris",
-    pages:"270 p.",
-    desc:"Ouvrage fondamental sur la culture, la poésie et l'identité touarègues, écrit avec et pour les Touaregs eux-mêmes. Aborde la question de la résistance culturelle et politique face aux États postcoloniaux du Mali et du Niger.",
-    tags:["Touaregs","Identité","Poésie","Culture","Résistance"],
-    publisher:"Éditions de l'Aube / CNRS",
-    links:[
-      {label:"🔍 Google Scholar", url:"https://scholar.google.com/scholar?q=Touaregs+voix+solitaires+Claudot-Hawad", cls:"btn-scholar"},
-      {label:"📚 Open Library", url:"https://openlibrary.org/search?q=Claudot-Hawad+touareg", cls:"btn-oplib"},
-      {label:"🌐 Persée", url:"https://www.persee.fr/search?q=Claudot-Hawad&ta=article", cls:"btn-persee"}
-    ]
-  },
-  {
-    id:41, year:1999, lang:"fr", type:"book",
-    title:"Les Touaregs : Voix solitaires sous l'éternité menacée",
-    author:"Pierre Boilley",
-    source:"Éditions Karthala, Paris",
-    pages:"636 p.",
-    desc:"Ouvrage de référence majeur sur l'histoire politique des Touaregs du Mali et du Niger. Analyse exhaustive des rébellions successives depuis l'indépendance, des revendications identitaires et des politiques des États malien et nigérien.",
-    tags:["Touaregs","Rébellions","Identité","Sahara","Histoire politique"],
-    publisher:"Éditions Karthala, Paris",
-    links:[
-      {label:"🔍 Google Scholar", url:"https://scholar.google.com/scholar?q=Les+Touaregs+voix+solitaires+Boilley+Karthala", cls:"btn-scholar"},
-      {label:"📚 Open Library", url:"https://openlibrary.org/search?q=Boilley+Touaregs+Karthala+1999", cls:"btn-oplib"},
-      {label:"🌐 Karthala", url:"https://www.karthala.com/", cls:"btn-cairn"},
-      {label:"🌐 Persée", url:"https://www.persee.fr/search?q=boilley+touareg&ta=article", cls:"btn-persee"}
-    ]
-  },
-  {
-    id:42, year:1954, lang:"fr", type:"book",
-    title:"Tombouctou et l'empire Songhaï : l'épanouissement du Soudan nigérien au XVe–XVIe siècle",
-    author:"Jean Rouch",
-    source:"IFAN / Librairie Larose, Paris",
-    pages:"240 p.",
-    desc:"Œuvre fondatrice sur l'histoire de Tombouctou et de l'Empire Songhaï, essentielle pour comprendre le substrat historique et culturel de la région azawadienne avant la colonisation française. Un classique incontournable de l'africanisme.",
-    tags:["Tombouctou","Empire Songhaï","Histoire précoloniale","Mali","XVe siècle"],
-    publisher:"IFAN / Librairie Larose, Paris",
-    links:[
-      {label:"🔍 Google Scholar", url:"https://scholar.google.com/scholar?q=Tombouctou+empire+Songhaï+Rouch+1954", cls:"btn-scholar"},
-      {label:"📚 Open Library", url:"https://openlibrary.org/search?q=Tombouctou+Songhai+Rouch", cls:"btn-oplib"},
-      {label:"📚 Internet Archive", url:"https://archive.org/search?query=Tombouctou+Songhai+empire+mali", cls:"btn-ia"},
-      {label:"🌐 Persée", url:"https://www.persee.fr/search?q=tombouctou+songhai&ta=article", cls:"btn-persee"}
-    ]
 /* ──────────────────────────────────────────
    تحديد الموضوعات
 ────────────────────────────────────────── */
@@ -1520,17 +418,10 @@ function detectTopics(title, desc) {
   const topics = [];
   for (const [pat, topic] of Object.entries(map)) {
     if (new RegExp(pat,'i').test(text)) topics.push(topic);
-}
+  }
   return topics.length ? topics.slice(0,5) : ['Azawad|أزواد'];
 }
 
-]; // fin REFS
-
-/* ====================================================
-   État des filtres
-==================================================== */
-let activeLang = "all";
-let activeType = "all";
 /* ──────────────────────────────────────────
    منع التكرار
 ────────────────────────────────────────── */
@@ -1542,14 +433,6 @@ function normalizeTitle(t) {
     .replace(/\s+/g,' ').trim().substring(0,80);
 }
 
-/* ====================================================
-   Fonctions de filtrage
-==================================================== */
-function setLang(lang, btn) {
-    activeLang = lang;
-    document.querySelectorAll('#langFilters .fbtn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    applyFilters();
 function removeDuplicates(books) {
   const seenISBN = new Set();
   const seenTitle = new Set();
@@ -1566,14 +449,6 @@ function removeDuplicates(books) {
   return unique;
 }
 
-function setType(type, btn) {
-    if (activeType === type) {
-        activeType = "all";
-        document.querySelectorAll('#typeFilters .fbtn').forEach(b => b.classList.remove('active'));
-    } else {
-        activeType = type;
-        document.querySelectorAll('#typeFilters .fbtn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
 /* ──────────────────────────────────────────
    جلب Google Books
 ────────────────────────────────────────── */
@@ -1614,14 +489,11 @@ async function fetchGoogleBooks(query) {
         source: 'Google Books',
         rating: v.averageRating||null
       });
-}
-    applyFilters();
+    }
   } catch(e) { console.warn('Google Books:', query, e); }
   return books;
 }
 
-function applyFilters() {
-    const q = document.getElementById('searchInput').value.toLowerCase().trim();
 /* ──────────────────────────────────────────
    جلب Open Library
 ────────────────────────────────────────── */
@@ -1661,12 +533,6 @@ async function fetchOpenLibrary(query) {
   return books;
 }
 
-    const visible = REFS.filter(r => {
-        const matchLang = activeLang === "all" || r.lang === activeLang;
-        const matchType = activeType === "all" || r.type === activeType;
-        const text = (r.title + " " + r.author + " " + r.source + " " + r.desc + " " + r.tags.join(" ")).toLowerCase();
-        const matchSearch = !q || text.includes(q);
-        return matchLang && matchType && matchSearch;
 /* ──────────────────────────────────────────
    جلب OpenAlex
 ────────────────────────────────────────── */
@@ -1678,7 +544,7 @@ async function fetchOpenAlex(query) {
       'per-page':'25',
       select:'id,title,authorships,publication_year,primary_location,open_access,doi,language',
       mailto:'azawad-library@research.org'
-});
+    });
     const r = await fetch(`https://api.openalex.org/works?${p}`);
     if (!r.ok) return books;
     const data = await r.json();
@@ -1712,8 +578,6 @@ async function fetchOpenAlex(query) {
   return books;
 }
 
-    renderCards(visible);
-    updateStats(visible);
 /* ──────────────────────────────────────────
    فلتر الصلة الأزوادية
 ────────────────────────────────────────── */
@@ -1728,12 +592,6 @@ function isAzawadRelevant(text) {
   return keywords.some(k => text.includes(k));
 }
 
-/* ====================================================
-   Rendu des cartes
-==================================================== */
-function renderCards(list) {
-    const grid = document.getElementById('cardsGrid');
-    const noR  = document.getElementById('noResults');
 /* ──────────────────────────────────────────
    المحرك الرئيسي
 ────────────────────────────────────────── */
@@ -1768,39 +626,17 @@ async function fetchAllBooks() {
     await sleep(280);
   }
 
-    if (list.length === 0) {
-        grid.innerHTML = '';
-        noR.style.display = 'block';
-        return;
-    }
-    noR.style.display = 'none';
   updateProgress(total, total, 'إزالة التكرار وحفظ النتائج...');
 
-    // Regrouper par année
-    const byYear = {};
-    list.forEach(r => {
-        if (!byYear[r.year]) byYear[r.year] = [];
-        byYear[r.year].push(r);
-    });
   ALL_BOOKS = removeDuplicates(allBooks);
   ALL_BOOKS.sort((a,b) => (b.year||0) - (a.year||0));
 
-    const years = Object.keys(byYear).map(Number).sort((a,b) => b-a);
-    let html = '';
   try {
     localStorage.setItem(CACHE_KEY, JSON.stringify({
       books: ALL_BOOKS, timestamp: Date.now()
     }));
   } catch(e) {}
 
-    years.forEach(yr => {
-        html += `
-        <div class="year-divider">
-            <span class="yr-label">📅 ${yr}</span>
-            <div class="yr-line"></div>
-        </div>`;
-        byYear[yr].forEach(r => { html += buildCard(r); });
-    });
   document.getElementById('progressBar').style.display = 'none';
   document.getElementById('refreshBtn').disabled = false;
   updateStats();
@@ -1810,18 +646,12 @@ async function fetchAllBooks() {
 
 function sleep(ms) { return new Promise(r=>setTimeout(r,ms)); }
 
-    grid.innerHTML = html;
 function updateProgress(cur, total, src) {
   const pct = Math.round((cur/total)*100);
   document.getElementById('progressFill').style.width = pct+'%';
   document.getElementById('progressText').textContent = `🔍 ${pct}% — ${src}`;
 }
 
-function buildCard(r) {
-    const langBadge = {ar:'b-lang-ar', fr:'b-lang-fr', en:'b-lang-en'}[r.lang];
-    const langLabel = {ar:'🇸🇦 عربي', fr:'🇫🇷 Français', en:'🇬🇧 English'}[r.lang];
-    const typeBadge = {book:'b-book', article:'b-article', thesis:'b-thesis', report:'b-report', chapter:'b-chapter'}[r.type] || 'b-book';
-    const typeLabel = {book:'📖 كتاب', article:'📄 مقالة', thesis:'🎓 أطروحة', report:'📊 تقرير', chapter:'📑 فصل'}[r.type] || '📖';
 /* ──────────────────────────────────────────
    فلترة وعرض
 ────────────────────────────────────────── */
@@ -1850,10 +680,6 @@ function filterBooks() {
     return true;
   });
 
-    const tags = r.tags.map(t => `<span class="tag">${t}</span>`).join('');
-    const links = r.links.map(l =>
-        `<a href="${l.url}" target="_blank" rel="noopener" class="btn-link ${l.cls}">${l.label}</a>`
-    ).join('');
   if (sort==='title') filtered.sort((a,b)=>a.title.localeCompare(b.title,'ar'));
   else if (sort==='pages') filtered.sort((a,b)=>(b.pages||0)-(a.pages||0));
   else filtered.sort((a,b)=>(b.year||0)-(a.year||0));
@@ -1891,32 +717,14 @@ function renderBooks(books) {
     const archiveQ = encodeURIComponent(b.title.substring(0,60));
     const scholarQ = encodeURIComponent((b.title+' '+(b.authors||[])[0]).substring(0,80));
 
-return `
-    <div class="card ${r.lang}">
-      <div class="card-top">
-        <div class="badges">
-          <span class="badge ${langBadge}">${langLabel}</span>
-          <span class="badge ${typeBadge}">${typeLabel}</span>
-        </div>
-        <span class="card-year">${r.year}</span>
-      </div>
-      <h3>${r.title}</h3>
-      <p class="card-author">✍️ <strong>${r.author}</strong></p>
-      <div class="card-meta">
-        <span>📌 ${r.source}</span>
-        ${r.pages ? `<span>📄 ${r.pages}</span>` : ''}
+    return `
     <div class="book-card">
       <div class="book-cover-wrap">
         ${coverHTML}
         <span class="lang-badge ${langClass}">${langLabel}</span>
         <span class="source-badge">${esc(b.source)}</span>
         ${isNew ? '<span class="new-badge">✨ جديد</span>' : ''}
-     </div>
-      <p class="card-desc">${r.desc}</p>
-      <div class="card-tags">${tags}</div>
-      <div class="card-footer">
-        <span class="card-publisher">🏛️ ${r.publisher}</span>
-        <div class="links-group">${links}</div>
+      </div>
       <div class="book-body" dir="rtl">
         <div class="book-title">${esc(b.title)}</div>
         <div class="book-author">✍️ ${esc((b.authors||[]).slice(0,3).join('، ')||'غير محدد')}</div>
@@ -1943,41 +751,17 @@ return `
              target="_blank" rel="noopener"
              class="btn-link btn-secondary" style="flex:${worldcat?'1':'2'}">📦 Archive.org</a>
         </div>
-     </div>
-   </div>`;
+      </div>
+    </div>`;
   }).join('');
 }
 
-/* ====================================================
-   Mise à jour des statistiques
-==================================================== */
-function updateStats(visible) {
-    const count = id => visible.filter(r => r[id === 'ar'||id==='fr'||id==='en' ? 'lang' : 'type'] === id).length;
-    document.getElementById('cAll').textContent  = visible.length;
-    document.getElementById('cAr').textContent   = visible.filter(r=>r.lang==='ar').length;
-    document.getElementById('cFr').textContent   = visible.filter(r=>r.lang==='fr').length;
-    document.getElementById('cEn').textContent   = visible.filter(r=>r.lang==='en').length;
-    document.getElementById('cBook').textContent = visible.filter(r=>r.type==='book').length;
-    document.getElementById('cArt').textContent  = visible.filter(r=>r.type==='article').length;
-    document.getElementById('cThe').textContent  = visible.filter(r=>r.type==='thesis').length;
-    document.getElementById('cRep').textContent  = visible.filter(r=>r.type==='report').length;
-    const total = REFS.length;
-    document.getElementById('resultCount').textContent =
-        visible.length === total ? `عرض كل المصادر (${total})` : `نتائج البحث: ${visible.length} من ${total}`;
 function esc(s) {
   const d = document.createElement('div');
   d.textContent = s||'';
   return d.innerHTML;
 }
 
-/* ====================================================
-   شريط التقدم
-==================================================== */
-window.addEventListener('scroll', () => {
-    const h = document.documentElement;
-    const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
-    document.getElementById('progressBar').style.width = pct + '%';
-});
 /* ──────────────────────────────────────────
    إحصائيات
 ────────────────────────────────────────── */
@@ -1992,13 +776,6 @@ function updateStats() {
   document.getElementById('pubCount').textContent = pubs.size;
 }
 
-/* ====================================================
-   تهيئة عند التحميل
-==================================================== */
-document.addEventListener('DOMContentLoaded', () => {
-    applyFilters();
-});
-</script>
 function updateLastTime() {
   document.getElementById('lastUpdate').textContent =
     'آخر تحديث: ' + new Date().toLocaleString('ar-SA',{

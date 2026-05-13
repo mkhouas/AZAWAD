@@ -8,65 +8,65 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --bg:#f0f2f5;--card:#fff;--text:#1a1a2e;--text2:#555;
-  --accent:#0d7377;--accent2:#14919b;--gold:#d4a017;
-  --ar:#059669;--fr:#2563eb;--en:#7c3aed;
-  --shadow:0 2px 20px rgba(0,0,0,.06);--radius:16px
+--bg:#f0f2f5;--card:#fff;--text:#1a1a2e;--text2:#555;
+--accent:#0d7377;--accent2:#14919b;--gold:#d4a017;
+--ar:#059669;--fr:#2563eb;--en:#7c3aed;
+--shadow:0 2px 20px rgba(0,0,0,.06);--radius:16px
 }
 body{font-family:'Segoe UI',Tahoma,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh}
 
 /* ── Hero ── */
 .hero{
-  background:linear-gradient(135deg,#0d1117 0%,#0d7377 50%,#14919b 100%);
-  color:#fff;padding:45px 20px;text-align:center;position:relative;overflow:hidden
+background:linear-gradient(135deg,#0d1117 0%,#0d7377 50%,#14919b 100%);
+color:#fff;padding:45px 20px;text-align:center;position:relative;overflow:hidden
 }
 .hero::before{
-  content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;
-  background:radial-gradient(circle,rgba(255,255,255,.03) 0%,transparent 70%);
-  animation:pulse 8s ease-in-out infinite
+content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;
+background:radial-gradient(circle,rgba(255,255,255,.03) 0%,transparent 70%);
+animation:pulse 8s ease-in-out infinite
 }
 @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
 .hero h1{font-size:2.1em;font-weight:800;position:relative;margin-bottom:8px;text-shadow:0 2px 8px rgba(0,0,0,.4)}
 .hero .sub{font-size:1em;opacity:.88;position:relative;max-width:700px;margin:0 auto 6px}
 .hero .langs{display:flex;justify-content:center;gap:10px;margin-top:14px;flex-wrap:wrap}
 .lang-pill{
-  padding:5px 18px;border-radius:20px;font-size:.85em;font-weight:700;
-  border:2px solid rgba(255,255,255,.35);color:#fff;background:rgba(255,255,255,.1);
-  backdrop-filter:blur(4px)
+padding:5px 18px;border-radius:20px;font-size:.85em;font-weight:700;
+border:2px solid rgba(255,255,255,.35);color:#fff;background:rgba(255,255,255,.1);
+backdrop-filter:blur(4px)
 }
 .hero-badge{
-  display:inline-block;background:rgba(212,160,23,.25);border:1px solid var(--gold);
-  color:var(--gold);padding:4px 16px;border-radius:20px;font-size:.8em;
-  font-weight:700;margin-top:10px;position:relative
+display:inline-block;background:rgba(212,160,23,.25);border:1px solid var(--gold);
+color:var(--gold);padding:4px 16px;border-radius:20px;font-size:.8em;
+font-weight:700;margin-top:10px;position:relative
 }
 
 /* ── Stats ── */
 .stats-bar{
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
-  gap:12px;max-width:1350px;margin:-28px auto 0;padding:0 20px;position:relative;z-index:2
+display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
+gap:12px;max-width:1350px;margin:-28px auto 0;padding:0 20px;position:relative;z-index:2
 }
 .stat-card{
-  background:var(--card);border-radius:var(--radius);padding:18px 14px;
-  text-align:center;box-shadow:var(--shadow);border:1px solid rgba(0,0,0,.05)
+background:var(--card);border-radius:var(--radius);padding:18px 14px;
+text-align:center;box-shadow:var(--shadow);border:1px solid rgba(0,0,0,.05)
 }
 .stat-card .num{font-size:1.7em;font-weight:800}
 .stat-card .lbl{font-size:.78em;color:var(--text2);margin-top:3px}
 
 /* ── Controls ── */
 .controls{
-  max-width:1350px;margin:28px auto 0;padding:0 20px;
-  display:flex;flex-wrap:wrap;gap:10px;align-items:center
+max-width:1350px;margin:28px auto 0;padding:0 20px;
+display:flex;flex-wrap:wrap;gap:10px;align-items:center
 }
 .search-box{
-  flex:1;min-width:240px;padding:12px 20px;border-radius:50px;
-  border:2px solid #e0e0e0;font-size:1em;outline:none;
-  transition:border .3s;direction:rtl;background:#fff
+flex:1;min-width:240px;padding:12px 20px;border-radius:50px;
+border:2px solid #e0e0e0;font-size:1em;outline:none;
+transition:border .3s;direction:rtl;background:#fff
 }
 .search-box:focus{border-color:var(--accent)}
 .filter-btn{
-  padding:10px 20px;border-radius:50px;border:2px solid #e0e0e0;
-  background:var(--card);cursor:pointer;font-size:.88em;font-weight:600;
-  transition:all .3s;white-space:nowrap
+padding:10px 20px;border-radius:50px;border:2px solid #e0e0e0;
+background:var(--card);cursor:pointer;font-size:.88em;font-weight:600;
+transition:all .3s;white-space:nowrap
 }
 .filter-btn:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-1px)}
 .filter-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
@@ -77,16 +77,16 @@ select.search-box{flex:none;width:190px}
 
 /* ── Update bar ── */
 .update-bar{
-  max-width:1350px;margin:14px auto 0;padding:0 20px;
-  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px
+max-width:1350px;margin:14px auto 0;padding:0 20px;
+display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px
 }
 .update-bar span{font-size:.83em;color:var(--text2)}
 .live{display:flex;align-items:center;gap:6px;font-size:.83em;color:var(--accent);font-weight:600}
 .live-dot{width:8px;height:8px;background:#10b981;border-radius:50%;animation:blink 2s ease-in-out infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
 .refresh-btn{
-  padding:7px 18px;border-radius:50px;border:none;background:var(--accent);
-  color:#fff;cursor:pointer;font-size:.83em;font-weight:600;transition:background .3s
+padding:7px 18px;border-radius:50px;border:none;background:var(--accent);
+color:#fff;cursor:pointer;font-size:.83em;font-weight:600;transition:background .3s
 }
 .refresh-btn:hover{background:var(--accent2)}
 .refresh-btn:disabled{opacity:.5;cursor:not-allowed}
@@ -99,41 +99,47 @@ select.search-box{flex:none;width:190px}
 
 /* ── Grid ── */
 .books-grid{
-  max-width:1350px;margin:18px auto 0;padding:0 20px 50px;
-  display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:20px
+max-width:1350px;margin:18px auto 0;padding:0 20px 50px;
+display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:20px
 }
 
 /* ── Card ── */
 .book-card{
-  background:var(--card);border-radius:var(--radius);overflow:hidden;
-  box-shadow:var(--shadow);border:1px solid rgba(0,0,0,.05);
-  transition:transform .3s,box-shadow .3s;display:flex;flex-direction:column
+background:var(--card);border-radius:var(--radius);overflow:hidden;
+box-shadow:var(--shadow);border:1px solid rgba(0,0,0,.05);
+transition:transform .3s,box-shadow .3s;display:flex;flex-direction:column
 }
 .book-card:hover{transform:translateY(-5px);box-shadow:0 10px 35px rgba(0,0,0,.12)}
 .book-cover-wrap{
-  position:relative;height:210px;
-  background:linear-gradient(135deg,#0d1117,#0d7377);
-  display:flex;align-items:center;justify-content:center;overflow:hidden
+position:relative;height:220px;
+background:linear-gradient(135deg,#0d1117,#0d7377);
+display:flex;align-items:center;justify-content:center;overflow:hidden
 }
 .book-cover-wrap img{
-  height:185px;max-width:130px;object-fit:cover;
-  border-radius:6px;box-shadow:4px 4px 20px rgba(0,0,0,.4);transition:transform .3s
+height:195px;max-width:140px;object-fit:cover;
+border-radius:6px;box-shadow:4px 4px 20px rgba(0,0,0,.4);transition:transform .3s
 }
 .book-card:hover .book-cover-wrap img{transform:scale(1.04)}
+.cover-placeholder{
+display:flex;flex-direction:column;align-items:center;justify-content:center;
+color:rgba(255,255,255,.5);font-size:.8em;text-align:center;padding:10px;gap:8px
+}
+.cover-placeholder .cover-icon{font-size:3.5em;opacity:.6}
+.cover-placeholder .cover-text{font-size:.75em;opacity:.7;line-height:1.4;max-width:120px}
 .lang-badge{
-  position:absolute;top:11px;right:11px;padding:3px 12px;
-  border-radius:18px;font-size:.73em;font-weight:700;color:#fff
+position:absolute;top:11px;right:11px;padding:3px 12px;
+border-radius:18px;font-size:.73em;font-weight:700;color:#fff
 }
 .lang-ar{background:var(--ar)}.lang-fr{background:var(--fr)}.lang-en{background:var(--en)}
 .source-badge{
-  position:absolute;bottom:9px;left:9px;padding:3px 9px;border-radius:9px;
-  font-size:.63em;background:rgba(255,255,255,.15);color:rgba(255,255,255,.85);
-  backdrop-filter:blur(4px)
+position:absolute;bottom:9px;left:9px;padding:3px 9px;border-radius:9px;
+font-size:.63em;background:rgba(255,255,255,.15);color:rgba(255,255,255,.85);
+backdrop-filter:blur(4px)
 }
 .new-badge{
-  position:absolute;top:11px;left:11px;padding:3px 10px;border-radius:18px;
-  font-size:.68em;font-weight:800;background:#fef08a;color:#713f12;
-  animation:newpulse 2s infinite
+position:absolute;top:11px;left:11px;padding:3px 10px;border-radius:18px;
+font-size:.68em;font-weight:800;background:#fef08a;color:#713f12;
+animation:newpulse 2s infinite
 }
 @keyframes newpulse{0%,100%{opacity:1}50%{opacity:.5}}
 .book-body{padding:17px;flex:1;display:flex;flex-direction:column;direction:rtl}
@@ -147,8 +153,8 @@ select.search-box{flex:none;width:190px}
 .book-desc{font-size:.8em;color:var(--text2);line-height:1.6;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:11px}
 .book-actions{margin-top:auto;display:flex;gap:7px}
 .btn-link{
-  flex:1;padding:9px;text-align:center;border-radius:10px;
-  font-size:.82em;font-weight:600;text-decoration:none;transition:all .3s
+flex:1;padding:9px;text-align:center;border-radius:10px;
+font-size:.82em;font-weight:600;text-decoration:none;transition:all .3s
 }
 .btn-primary{background:var(--text);color:#fff}
 .btn-primary:hover{background:var(--accent)}
@@ -169,12 +175,12 @@ footer{text-align:center;padding:30px 20px;font-size:.8em;color:var(--text2);bor
 .sources-list.open{display:block}
 
 @media(max-width:768px){
-  .hero h1{font-size:1.45em}
-  .books-grid{grid-template-columns:1fr}
-  .stats-bar{grid-template-columns:repeat(3,1fr)}
-  .sources-list{columns:1}
-  .controls{flex-direction:column;align-items:stretch}
-  select.search-box{width:100%}
+.hero h1{font-size:1.45em}
+.books-grid{grid-template-columns:1fr}
+.stats-bar{grid-template-columns:repeat(3,1fr)}
+.sources-list{columns:1}
+.controls{flex-direction:column;align-items:stretch}
+select.search-box{width:100%}
 }
 </style>
 </head>
@@ -190,30 +196,30 @@ footer{text-align:center;padding:30px 20px;font-size:.8em;color:var(--text2);bor
     <span class="lang-pill">🇫🇷 Français</span>
     <span class="lang-pill">🇬🇧 English</span>
   </div>
-  <div class="hero-badge">⚡ تحديث يومي تلقائي — Google Books · Open Library · OpenAlex</div>
+  <div class="hero-badge">⚡ تحديث يومي تلقائي — Google Books · Open Library · OpenAlex · Crossref · DOAB</div>
 </div>
 
 <!-- ══ Stats ══ -->
 <div class="stats-bar" id="statsBar">
-  <div class="stat-card"><div class="num" id="totalCount">-</div><div class="lbl">📚 إجمالي الكتب</div></div>
+  <div class="stat-card">📚 <div class="num" id="totalCount">-</div><div class="lbl">إجمالي الكتب</div></div>
   <div class="stat-card"><div class="num" id="arCount" style="color:var(--ar)">-</div><div class="lbl">🇸🇦 عربي</div></div>
   <div class="stat-card"><div class="num" id="frCount" style="color:var(--fr)">-</div><div class="lbl">🇫🇷 فرنسي</div></div>
   <div class="stat-card"><div class="num" id="enCount" style="color:var(--en)">-</div><div class="lbl">🇬🇧 إنجليزي</div></div>
   <div class="stat-card"><div class="num" id="newCount" style="color:var(--gold)">-</div><div class="lbl">✨ جديد هذا العام</div></div>
-  <div class="stat-card"><div class="num" id="pubCount">-</div><div class="lbl">🏛️ الناشرون</div></div>
+  <div class="stat-card">🏛 <div class="num" id="pubCount">-</div><div class="lbl">الناشرون</div></div>
 </div>
 
 <!-- ══ Controls ══ -->
 <div class="controls">
   <input type="text" class="search-box" id="searchInput"
-         placeholder="🔍 ابحث بالعنوان، المؤلف، الناشر..."
-         oninput="filterBooks()">
+    placeholder="🔍 ابحث بالعنوان، المؤلف، الناشر ..."
+    oninput="filterBooks()">
   <button class="filter-btn active" onclick="setLang('all',this)">🌐 الكل</button>
   <button class="filter-btn" onclick="setLang('ar',this)">🇸🇦 عربي</button>
   <button class="filter-btn" onclick="setLang('fr',this)">🇫🇷 Français</button>
   <button class="filter-btn" onclick="setLang('en',this)">🇬🇧 English</button>
   <select class="search-box" id="topicSelect" onchange="filterBooks()">
-    <option value="">🏷️ كل الموضوعات</option>
+    <option value="">🏷 كل الموضوعات</option>
     <option value="Azawad">أزواد / Azawad</option>
     <option value="Tuareg">الطوارق / Touareg</option>
     <option value="Mali">مالي / Mali</option>
@@ -226,9 +232,13 @@ footer{text-align:center;padding:30px 20px;font-size:.8em;color:var(--text2);bor
     <option value="History">تاريخ / Histoire</option>
     <option value="Islam">إسلام / Islam</option>
     <option value="Conflict">صراع / Conflit</option>
+    <option value="Jihadism">جهاد / Jihadisme</option>
+    <option value="MNLA">MNLA / حركة</option>
+    <option value="Nomadism">بدو / Nomadisme</option>
+    <option value="Songhai">سونغاي / Songhai</option>
   </select>
   <select class="search-box" id="sortSelect" onchange="filterBooks()" style="width:160px">
-    <option value="date">📅 الأحدث أولاً</option>
+    <option value="date">🗓 الأحدث أولا</option>
     <option value="title">🔤 أبجدي</option>
     <option value="pages">📄 الأطول</option>
   </select>
@@ -237,42 +247,42 @@ footer{text-align:center;padding:30px 20px;font-size:.8em;color:var(--text2);bor
 <!-- ══ Update bar ══ -->
 <div class="update-bar">
   <div class="live"><span class="live-dot"></span>تحديث يومي تلقائي</div>
-  <span id="lastUpdate">آخر تحديث: جارٍ التحميل...</span>
+  <span id="lastUpdate">آخر تحديث: جار التحميل...</span>
   <button class="refresh-btn" id="refreshBtn" onclick="manualRefresh()">🔄 تحديث الآن</button>
 </div>
 
 <!-- ══ Progress ══ -->
 <div class="progress-bar" id="progressBar" style="display:none">
   <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
-  <div class="progress-text" id="progressText">جارٍ الجلب من المصادر...</div>
+  <div class="progress-text" id="progressText">جار الجلب من المصادر...</div>
 </div>
 
 <!-- ══ Grid ══ -->
 <div class="books-grid" id="booksGrid">
-  <div class="loader"><div class="spinner"></div><p>جارٍ جلب الكتب حول القضية الأزوادية...</p></div>
+  <div class="loader"><div class="spinner"></div><p>جار جلب الكتب حول القضية الأزوادية...</p></div>
 </div>
 
 <!-- ══ Footer ══ -->
 <footer>
   <p><strong>مرصد الكتب الأزوادي</strong> © 2024–2025</p>
-  <p>يجمع تلقائياً من Google Books، Open Library، OpenAlex، Crossref، DOAB وغيرها</p>
-  <p style="margin-top:6px;font-size:.76em;color:#999">
-    ⚠️ الروابط تُحيل إلى مصادر خارجية. للأغراض الأكاديمية فقط.
-  </p>
+  <p>يجمع تلقائيا من Google Books، Open Library، OpenAlex، Crossref، DOAB وغيرها</p>
+  <p style="margin-top:6px;font-size:.76em;color:#999">⚠️ الروابط تُحيل إلى مصادر خارجية. للأغراض الأكاديمية فقط.</p>
   <button class="sources-toggle" onclick="toggleSources()">📋 عرض مصادر البحث المستخدمة</button>
   <div class="sources-list" id="sourcesList"></div>
 </footer>
 
 <script>
-/* ══════════════════════════════════════════════════════════
-   المحرك الأزوادي المتخصص
-   مصادر: Google Books API + Open Library API + OpenAlex API
-   الكاش: 24 ساعة (localStorage)
-══════════════════════════════════════════════════════════ */
+/*
+═══════════════════════════════════════════════════════════
+المحرك الأزوادي المتخصص
+مصادر: Google Books API + Open Library API + OpenAlex API + Crossref API + DOAB
+الكاش: 24 ساعة (localStorage)
+═══════════════════════════════════════════════════════════
+*/
 
 let ALL_BOOKS = [];
 let currentLang = 'all';
-const CACHE_KEY = 'azawad_books_v4';
+const CACHE_KEY = 'azawad_books_v5';
 const CACHE_DURATION = 24 * 60 * 60 * 1000; // 24h
 
 /* ─── استعلامات البحث الأزوادية المتخصصة ─── */
@@ -302,7 +312,17 @@ const QUERIES = {
     "Songhai empire Timbuktu",
     "Tuareg self-determination",
     "Algeria peace Mali accord",
-    "France operation Serval Mali"
+    "France operation Serval Mali",
+    "Sahel governance Mali",
+    "Mali armed groups jihadist",
+    "Fulani Peul Mali conflict",
+    "Mali UN peacekeeping",
+    "Sahara desert Tuareg nomads",
+    "Mali political crisis junta",
+    "West Africa security Sahel",
+    "Azawad statehood recognition",
+    "AQIM Al-Qaeda Mali Sahel",
+    "Bamako Mali politics"
   ],
   fr: [
     "Azawad Mali",
@@ -329,7 +349,17 @@ const QUERIES = {
     "Empire Songhaï Tombouctou",
     "Autodétermination Azawad droit international",
     "Accord Alger Mali paix",
-    "France opération Serval Mali"
+    "France opération Serval Mali",
+    "Gouvernance Sahel Mali",
+    "Groupes armés Mali djihadistes",
+    "Peul Fulani Mali conflit",
+    "Mali maintien paix ONU",
+    "Sahara touareg nomades",
+    "Mali junte militaire politique",
+    "Afrique Sahel sécurité",
+    "AQMI Al-Qaïda Mali Sahel",
+    "Bamako Mali politique",
+    "Mauritanie Niger Burkina Faso Sahel"
   ],
   ar: [
     "أزواد مالي",
@@ -351,32 +381,95 @@ const QUERIES = {
     "الاتفاقية الجزائرية مالي السلام",
     "تاريخ مالي الاستعمار",
     "إمبراطورية سونغاي تمبكتو",
-    "مالي روسيا فاغنر"
+    "مالي روسيا فاغنر",
+    "حركة تحرير أزواد",
+    "مالي الأمم المتحدة حفظ السلام",
+    "أفريقيا الغربية الساحل الأمن",
+    "الرعاة البدو الطوارق الصحراء",
+    "مالي الانقلاب العسكري السياسة",
+    "القاعدة مالي الساحل"
   ]
 };
 
-/* ─── قائمة المصادر ─── */
+/* ─── قائمة المصادر الموسعة ─── */
 const SOURCES_LIST = [
-  "Google Books API","Open Library (Internet Archive)","OpenAlex API",
-  "Crossref API","DOAB (Directory of Open Access Books)","Semantic Scholar",
-  "OAPEN Library","HAL Open Science (France)","Cairn.info",
-  "Persée (France)","JSTOR Open Access","Internet Archive",
-  "Karthala (Paris)","L'Harmattan","La Découverte",
-  "CNRS Éditions","Éditions de l'EHESS","Presses de Sciences Po",
-  "African Studies Centre Leiden","Nordic Africa Institute",
-  "CODESRIA (Dakar)","Timbuktu Institute (Dakar)","Rift Valley Institute",
-  "International Crisis Group","Human Rights Watch",
-  "Oxford University Press","Cambridge University Press",
-  "Pluto Press","Zed Books","I.B. Tauris","Hurst Publishers",
-  "James Currey","Indiana University Press","Ohio University Press",
-  "مركز دراسات الوحدة العربية","المركز العربي للأبحاث","معهد الدوحة للدراسات",
-  "مركز الجزيرة للدراسات","مركز الأهرام","دار الساقي","دار الفارابي",
-  "أفريقيا الشرق (المغرب)","دار توبقال","منشورات الجمل"
+  // APIs ومصادر رقمية
+  "Google Books API",
+  "Open Library (Internet Archive)",
+  "OpenAlex API",
+  "Crossref API",
+  "DOAB (Directory of Open Access Books)",
+  "Semantic Scholar",
+  "OAPEN Library",
+  "HAL Open Science (France)",
+  "Cairn.info",
+  "Persée (France)",
+  "JSTOR Open Access",
+  "Internet Archive",
+  // دور النشر الفرنسية والأوروبية
+  "Karthala (Paris)",
+  "L'Harmattan",
+  "La Découverte",
+  "CNRS Éditions",
+  "Éditions de l'EHESS",
+  "Presses de Sciences Po",
+  "Brill Publishers",
+  "Routledge",
+  // مراكز بحثية أفريقية ودولية
+  "African Studies Centre Leiden",
+  "Nordic Africa Institute",
+  "CODESRIA (Dakar)",
+  "Timbuktu Institute (Dakar)",
+  "Rift Valley Institute",
+  "International Crisis Group",
+  "Human Rights Watch",
+  "Amnesty International",
+  "Stockholm International Peace Research Institute (SIPRI)",
+  "Chatham House",
+  // دور النشر الأنجلوساكسونية
+  "Oxford University Press",
+  "Cambridge University Press",
+  "Pluto Press",
+  "Zed Books",
+  "I.B. Tauris",
+  "Hurst Publishers",
+  "James Currey",
+  "Indiana University Press",
+  "Ohio University Press",
+  "University of Michigan Press",
+  "African Arguments (Zed Books)",
+  // مصادر عربية
+  "مركز دراسات الوحدة العربية",
+  "المركز العربي للأبحاث ودراسة السياسات",
+  "معهد الدوحة للدراسات العليا",
+  "مركز الجزيرة للدراسات",
+  "مركز الأهرام للدراسات السياسية",
+  "دار الساقي",
+  "دار الفارابي",
+  "أفريقيا الشرق (المغرب)",
+  "دار توبقال",
+  "منشورات الجمل",
+  "المركز الديمقراطي العربي (برلين)",
+  "مركز ابن خلدون للدراسات الإنمائية",
+  "مجلة شؤون عربية",
+  "مجلة المستقبل العربي",
+  // مصادر فرنسية متخصصة بأفريقيا
+  "Politique africaine (Paris)",
+  "Afrique contemporaine",
+  "Les Cahiers d'Afrique de l'Est",
+  "Bulletin de l'IFAN",
+  "Institut Français d'Afrique Noire (IFAN)",
+  // مصادر إنجليزية متخصصة
+  "African Affairs (Oxford)",
+  "Journal of Modern African Studies",
+  "Africa (International African Institute)",
+  "The Journal of North African Studies",
+  "Security Studies",
+  "Small Wars & Insurgencies",
+  "Terrorism and Political Violence"
 ];
 
-/* ──────────────────────────────────────────
-   كشف اللغة
-────────────────────────────────────────── */
+/* ─── كشف اللغة ─── */
 function detectLang(text) {
   if (!text) return 'en';
   if (/[\u0600-\u06FF]/.test(text)) return 'ar';
@@ -386,13 +479,11 @@ function detectLang(text) {
   return 'en';
 }
 
-/* ──────────────────────────────────────────
-   تحديد الموضوعات
-────────────────────────────────────────── */
+/* ─── تحديد الموضوعات ─── */
 function detectTopics(title, desc) {
   const text = ((title||'') + ' ' + (desc||'')).toLowerCase();
   const map = {
-    'azawad': 'Azawad|أزواد',
+    'azawad|أزواد': 'Azawad|أزواد',
     'tuareg|touareg|طوارق': 'Tuareg|الطوارق',
     'mali|مالي': 'Mali|مالي',
     'sahel|ساحل': 'Sahel|الساحل',
@@ -402,18 +493,20 @@ function detectTopics(title, desc) {
     'identit|هوية': 'Identity|هوية',
     'securi|sécurité|أمن': 'Security|أمن',
     'histor|تاريخ': 'History|تاريخ',
-    'islam|إسلام|islamique': 'Islam|إسلام',
-    'conflict|conflit|صراع|نزاع': 'Conflict|صراع',
-    'jihad|دجهاد|jihadisme': 'Jihadism|جهادية',
+    'islam|islamique|إسلام': 'Islam|إسلام',
+    'conflit|conflict|صراع|نزاع': 'Conflict|صراع',
+    'jihad|jihadisme|جهاد|جهادية': 'Jihadism|جهاد',
     'mnla|mouvement|حركة': 'MNLA',
     'kidal|كيدال': 'Kidal|كيدال',
     'gao|غاو': 'Gao|غاو',
-    'droits|rights|حقوق': 'Human Rights|حقوق الإنسان',
-    'migrat|نزوح|déplacement': 'Displacement|نزوح',
-    'france|فرنسا|serval|barkhane': 'France & Mali',
-    'nomad|بدو|pastoral': 'Nomadism|رحل',
+    'droits|rights|حقوق|اإلنسان': 'Human Rights|حقوق الإنسان',
+    'migrat|déplacement|نزوح': 'Displacement|نزوح',
+    'serval|barkhane|france': 'France & Mali|فرنسا',
+    'nomad|pastoral|رحل|بدو': 'Nomadism|بدو',
     'songhai|سونغاي': 'Songhai|سونغاي',
-    'wagner|فاغنر|russie|روسيا': 'Wagner/Russia'
+    'wagner|russie|روسيا|فاغنر': 'Wagner/Russia',
+    'fulani|peul|فولاني': 'Fulani|فولاني',
+    'aqmi|aqim|qaeda|قاعدة': 'AQIM|القاعدة'
   };
   const topics = [];
   for (const [pat, topic] of Object.entries(map)) {
@@ -422,14 +515,12 @@ function detectTopics(title, desc) {
   return topics.length ? topics.slice(0,5) : ['Azawad|أزواد'];
 }
 
-/* ──────────────────────────────────────────
-   منع التكرار
-────────────────────────────────────────── */
+/* ─── منع التكرار ─── */
 function normalizeTitle(t) {
   if (!t) return '';
   return t.toLowerCase().trim()
     .replace(/[^\w\s\u0600-\u06FF]/g,' ')
-    .replace(/\b(the|a|an|le|la|les|un|une|des|du|de|et|في|من|إلى|على|و|أو)\b/gi,' ')
+    .replace(/\b(في|من|إلى|على|أو|و|the|a|an|le|la|les|un|une|des|du|de|et)\b/gi,' ')
     .replace(/\s+/g,' ').trim().substring(0,80);
 }
 
@@ -449,9 +540,29 @@ function removeDuplicates(books) {
   return unique;
 }
 
-/* ──────────────────────────────────────────
-   جلب Google Books
-────────────────────────────────────────── */
+/* ─── بناء غلاف الكتاب ─── */
+function buildCoverHTML(b) {
+  if (b.cover && b.cover.length > 10) {
+    return `<img src="${b.cover}" alt="${esc(b.title)}" loading="lazy"
+      onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="cover-placeholder" style="display:none">
+        <div class="cover-icon">${getLangIcon(b.language)}</div>
+        <div class="cover-text">${esc(b.title.substring(0,50))}</div>
+      </div>`;
+  }
+  return `<div class="cover-placeholder">
+    <div class="cover-icon">${getLangIcon(b.language)}</div>
+    <div class="cover-text">${esc(b.title.substring(0,60))}</div>
+  </div>`;
+}
+
+function getLangIcon(lang) {
+  if (lang === 'ar') return '📖';
+  if (lang === 'fr') return '📕';
+  return '📗';
+}
+
+/* ─── جلب Google Books ─── */
 async function fetchGoogleBooks(query) {
   const books = [];
   try {
@@ -466,11 +577,15 @@ async function fetchGoogleBooks(query) {
       const v = item.volumeInfo||{};
       const title = v.title||'';
       if (!title || title.length < 4) continue;
-      // فلتر الصلة: يجب أن يحتوي العنوان أو الوصف على كلمة مفتاحية أزوادية
       const combined = (title+' '+(v.description||'')+' '+(v.categories||[]).join(' ')).toLowerCase();
       if (!isAzawadRelevant(combined)) continue;
       const lang = v.language==='ar'?'ar': v.language==='fr'?'fr': detectLang(title);
       const pubDate = v.publishedDate||'';
+      // محاولة الحصول على أفضل صورة للغلاف
+      const imageLinks = v.imageLinks || {};
+      let cover = imageLinks.extraLarge || imageLinks.large || imageLinks.medium || 
+                  imageLinks.small || imageLinks.thumbnail || imageLinks.smallThumbnail || '';
+      if (cover) cover = cover.replace('http:','https:').replace('zoom=1','zoom=2');
       books.push({
         id: item.id,
         title: title + (v.subtitle ? ': '+v.subtitle : ''),
@@ -480,9 +595,9 @@ async function fetchGoogleBooks(query) {
         year: pubDate ? parseInt(pubDate) : 0,
         pages: v.pageCount||null,
         isbn: (v.industryIdentifiers||[]).find(i=>i.type==='ISBN_13')?.identifier
-          || (v.industryIdentifiers||[]).find(i=>i.type==='ISBN_10')?.identifier||'',
+          ||(v.industryIdentifiers||[]).find(i=>i.type==='ISBN_10')?.identifier||'',
         book_url: v.infoLink||v.previewLink||'',
-        cover: (v.imageLinks?.thumbnail||v.imageLinks?.smallThumbnail||'').replace('http:','https:'),
+        cover: cover,
         description: (v.description||'').substring(0,450),
         language: lang,
         topics: detectTopics(title, v.description),
@@ -494,9 +609,7 @@ async function fetchGoogleBooks(query) {
   return books;
 }
 
-/* ──────────────────────────────────────────
-   جلب Open Library
-────────────────────────────────────────── */
+/* ─── جلب Open Library ─── */
 async function fetchOpenLibrary(query) {
   const books = [];
   try {
@@ -511,6 +624,8 @@ async function fetchOpenLibrary(query) {
       if (!isAzawadRelevant(combined)) continue;
       const year = doc.first_publish_year||0;
       const coverId = doc.cover_i;
+      // استخدام صورة أكبر من Open Library
+      const cover = coverId ? `https://covers.openlibrary.org/b/id/${coverId}-L.jpg` : '';
       books.push({
         id: 'ol_'+doc.key,
         title,
@@ -521,7 +636,7 @@ async function fetchOpenLibrary(query) {
         pages: doc.number_of_pages_median||null,
         isbn: (doc.isbn||[])[0]||'',
         book_url: 'https://openlibrary.org'+doc.key,
-        cover: coverId ? `https://covers.openlibrary.org/b/id/${coverId}-M.jpg` : '',
+        cover: cover,
         description: '',
         language: detectLang(title),
         topics: detectTopics(title, (doc.subject||[]).join(' ')),
@@ -533,9 +648,7 @@ async function fetchOpenLibrary(query) {
   return books;
 }
 
-/* ──────────────────────────────────────────
-   جلب OpenAlex
-────────────────────────────────────────── */
+/* ─── جلب OpenAlex ─── */
 async function fetchOpenAlex(query) {
   const books = [];
   try {
@@ -543,7 +656,7 @@ async function fetchOpenAlex(query) {
       search: query, filter:'type:book',
       'per-page':'25',
       select:'id,title,authorships,publication_year,primary_location,open_access,doi,language',
-      mailto:'azawad-library@research.org'
+      'mailto':'azawad-library@research.org'
     });
     const r = await fetch(`https://api.openalex.org/works?${p}`);
     if (!r.ok) return books;
@@ -578,38 +691,81 @@ async function fetchOpenAlex(query) {
   return books;
 }
 
-/* ──────────────────────────────────────────
-   فلتر الصلة الأزوادية
-────────────────────────────────────────── */
+/* ─── جلب Crossref ─── */
+async function fetchCrossref(query) {
+  const books = [];
+  try {
+    const p = new URLSearchParams({
+      query: query,
+      filter: 'type:book,type:monograph',
+      rows: '20',
+      select: 'DOI,title,author,published,publisher,ISBN,language'
+    });
+    const r = await fetch(`https://api.crossref.org/works?${p}`);
+    if (!r.ok) return books;
+    const data = await r.json();
+    for (const item of (data.message?.items||[])) {
+      const title = (item.title||[])[0]||'';
+      if (!title) continue;
+      if (!isAzawadRelevant(title.toLowerCase())) continue;
+      const year = item.published?.['date-parts']?.[0]?.[0] || 0;
+      const authors = (item.author||[]).slice(0,3).map(a=>`${a.given||''} ${a.family||''}`.trim());
+      const isbn = (item.ISBN||[])[0]||'';
+      books.push({
+        id: 'cr_'+item.DOI,
+        title,
+        authors,
+        publisher: item.publisher||'',
+        publication_date: year ? year+'-01-01' : '',
+        year,
+        pages: null,
+        isbn,
+        book_url: item.DOI ? 'https://doi.org/'+item.DOI : '',
+        cover: '',
+        description: '',
+        language: detectLang(title),
+        topics: detectTopics(title,''),
+        source: 'Crossref',
+        rating: null
+      });
+    }
+  } catch(e) { console.warn('Crossref:', query, e); }
+  return books;
+}
+
+/* ─── فلتر الصلة الأزوادية ─── */
 function isAzawadRelevant(text) {
   const keywords = [
-    'azawad','tuareg','touareg','طوارق','أزواد',
-    'mali','مالي','kidal','gao','timbuktu','tombouctou','تمبكتو',
-    'sahel','ساحل','mnla','northern mali','nord mali','شمال مالي',
-    'ansar dine','aqmi','aqim','bamako','songhai','سونغاي',
-    'peul','fulani','nomad','pastoral sahara'
+    'أزواد','طوارق','azawad','tuareg','touareg',
+    'تمبكتو','kidal','gao','timbuktu','tombouctou','مالي','mali',
+    'شمال مالي','mnla','northern mali','nord mali','ساحل','sahel',
+    'سونغاي','ansar dine','aqmi','aqim','bamako','songhai',
+    'peul','fulani','nomad','pastoral sahara',
+    'barkhane','serval','minusma','wagner mali',
+    'burkina faso sahel','niger tuareg'
   ];
   return keywords.some(k => text.includes(k));
 }
 
-/* ──────────────────────────────────────────
-   المحرك الرئيسي
-────────────────────────────────────────── */
+/* ─── المحرك الرئيسي ─── */
 async function fetchAllBooks() {
   document.getElementById('progressBar').style.display = 'block';
   document.getElementById('refreshBtn').disabled = true;
   document.getElementById('booksGrid').innerHTML =
-    '<div class="loader"><div class="spinner"></div><p>جارٍ جلب الكتب الأزوادية من المصادر...</p></div>';
+    '<div class="loader"><div class="spinner"></div><p>جار جلب الكتب الأزوادية من المصادر...</p></div>';
 
   const allBooks = [];
   const allQueries = [
     ...QUERIES.en.map(q=>({q,api:'google'})),
     ...QUERIES.fr.map(q=>({q,api:'google'})),
     ...QUERIES.ar.map(q=>({q,api:'google'})),
-    ...QUERIES.en.slice(0,12).map(q=>({q,api:'openlibrary'})),
-    ...QUERIES.fr.slice(0,10).map(q=>({q,api:'openlibrary'})),
-    ...QUERIES.en.slice(0,10).map(q=>({q,api:'openalex'})),
-    ...QUERIES.fr.slice(0,8).map(q=>({q,api:'openalex'}))
+    ...QUERIES.en.slice(0,14).map(q=>({q,api:'openlibrary'})),
+    ...QUERIES.fr.slice(0,12).map(q=>({q,api:'openlibrary'})),
+    ...QUERIES.ar.slice(0,8).map(q=>({q,api:'openlibrary'})),
+    ...QUERIES.en.slice(0,12).map(q=>({q,api:'openalex'})),
+    ...QUERIES.fr.slice(0,10).map(q=>({q,api:'openalex'})),
+    ...QUERIES.en.slice(0,8).map(q=>({q,api:'crossref'})),
+    ...QUERIES.fr.slice(0,6).map(q=>({q,api:'crossref'})),
   ];
 
   const total = allQueries.length;
@@ -619,11 +775,12 @@ async function fetchAllBooks() {
     step++;
     updateProgress(step, total, `${api}: ${q.substring(0,40)}...`);
     let books = [];
-    if (api==='google')      books = await fetchGoogleBooks(q);
+    if (api==='google') books = await fetchGoogleBooks(q);
     else if (api==='openlibrary') books = await fetchOpenLibrary(q);
-    else if (api==='openalex')    books = await fetchOpenAlex(q);
+    else if (api==='openalex') books = await fetchOpenAlex(q);
+    else if (api==='crossref') books = await fetchCrossref(q);
     allBooks.push(...books);
-    await sleep(280);
+    await sleep(300);
   }
 
   updateProgress(total, total, 'إزالة التكرار وحفظ النتائج...');
@@ -652,9 +809,7 @@ function updateProgress(cur, total, src) {
   document.getElementById('progressText').textContent = `🔍 ${pct}% — ${src}`;
 }
 
-/* ──────────────────────────────────────────
-   فلترة وعرض
-────────────────────────────────────────── */
+/* ─── فلترة وعرض ─── */
 function setLang(lang, btn) {
   currentLang = lang;
   document.querySelectorAll('.filter-btn').forEach(b=>b.className='filter-btn');
@@ -687,72 +842,61 @@ function filterBooks() {
   renderBooks(filtered);
 }
 
-/* ──────────────────────────────────────────
-   رسم البطاقات
-────────────────────────────────────────── */
+/* ─── رسم البطاقات ─── */
 function renderBooks(books) {
   const grid = document.getElementById('booksGrid');
   if (!books.length) {
     grid.innerHTML = '<div class="no-results"><div class="emoji">📭</div><p>لا توجد كتب مطابقة</p></div>';
     return;
   }
-
   const currentYear = new Date().getFullYear();
-
   grid.innerHTML = books.map(b => {
     const langClass = `lang-${b.language}`;
-    const langLabel = b.language==='ar'?'🇸🇦 عربي': b.language==='fr'?'🇫🇷 Français':'🇬🇧 English';
+    const langLabel = b.language==='ar'?'🇸🇦 عربي':b.language==='fr'?'🇫🇷 Français':'🇬🇧 English';
     const isNew = b.year >= currentYear - 1;
     const yearStr = b.year ? `📅 ${b.year}` : '';
-
-    const coverHTML = b.cover
-      ? `<img src="${b.cover}" alt="${esc(b.title)}" loading="lazy"
-             onerror="this.parentElement.innerHTML='<div style=\\'font-size:3em;opacity:.4\\'>📚</div>'">`
-      : `<div style="font-size:3em;opacity:.4">📚</div>`;
-
+    const coverHTML = buildCoverHTML(b);
     const worldcat = b.isbn
-      ? `<a href="https://www.worldcat.org/isbn/${b.isbn}" target="_blank" rel="noopener" class="btn-link btn-secondary">🌍 WorldCat</a>`
+      ? `<a href="https://www.worldcat.org/isbn/${b.isbn}" target="_blank" rel="noopener" class="btn-link btn-secondary">🌐 WorldCat</a>`
       : '';
-
     const archiveQ = encodeURIComponent(b.title.substring(0,60));
     const scholarQ = encodeURIComponent((b.title+' '+(b.authors||[])[0]).substring(0,80));
-
     return `
-    <div class="book-card">
-      <div class="book-cover-wrap">
-        ${coverHTML}
-        <span class="lang-badge ${langClass}">${langLabel}</span>
-        <span class="source-badge">${esc(b.source)}</span>
-        ${isNew ? '<span class="new-badge">✨ جديد</span>' : ''}
-      </div>
-      <div class="book-body" dir="rtl">
-        <div class="book-title">${esc(b.title)}</div>
-        <div class="book-author">✍️ ${esc((b.authors||[]).slice(0,3).join('، ')||'غير محدد')}</div>
-        <div class="book-publisher">🏛️ ${esc(b.publisher||'غير محدد')}</div>
-        <div class="book-meta">
-          ${yearStr ? `<span>${yearStr}</span>` : ''}
-          ${b.pages ? `<span>📄 ${b.pages} صفحة</span>` : ''}
-          ${b.rating ? `<span>⭐ ${b.rating.toFixed(1)}</span>` : ''}
-          ${b.isbn ? `<span>🔖 ${b.isbn.substring(0,13)}</span>` : ''}
+      <div class="book-card">
+        <div class="book-cover-wrap">
+          ${coverHTML}
+          <span class="lang-badge ${langClass}">${langLabel}</span>
+          <span class="source-badge">${esc(b.source)}</span>
+          ${isNew ? '<span class="new-badge">✨ جديد</span>' : ''}
         </div>
-        <div class="book-topics">
-          ${b.topics.slice(0,5).map(t=>`<span class="topic-tag">${esc(t)}</span>`).join('')}
+        <div class="book-body" dir="rtl">
+          <div class="book-title">${esc(b.title)}</div>
+          <div class="book-author">✍️ ${esc((b.authors||[]).slice(0,3).join('، ')||'غير محدد')}</div>
+          <div class="book-publisher">🏛 ${esc(b.publisher||'غير محدد')}</div>
+          <div class="book-meta">
+            ${yearStr ? `<span>${yearStr}</span>` : ''}
+            ${b.pages ? `<span>📄 ${b.pages} صفحة</span>` : ''}
+            ${b.rating ? `<span>⭐ ${b.rating.toFixed(1)}</span>` : ''}
+            ${b.isbn ? `<span>🔖 ${b.isbn.substring(0,13)}</span>` : ''}
+          </div>
+          <div class="book-topics">
+            ${b.topics.slice(0,5).map(t=>`<span class="topic-tag">${esc(t)}</span>`).join('')}
+          </div>
+          ${b.description ? `<div class="book-desc">${esc(b.description)}</div>` : ''}
+          <div class="book-actions">
+            <a href="${esc(b.book_url||'#')}" target="_blank" rel="noopener"
+              class="btn-link btn-primary">🔗 رابط الكتاب</a>
+            <a href="https://scholar.google.com/scholar?q=${scholarQ}"
+              target="_blank" rel="noopener" class="btn-link btn-secondary">🎓 Scholar</a>
+          </div>
+          <div class="book-actions" style="margin-top:6px">
+            ${worldcat}
+            <a href="https://archive.org/search?query=${archiveQ}"
+              target="_blank" rel="noopener"
+              class="btn-link btn-secondary" style="flex:${worldcat?'1':'2'}">📦 Archive.org</a>
+          </div>
         </div>
-        ${b.description ? `<div class="book-desc">${esc(b.description)}</div>` : ''}
-        <div class="book-actions">
-          <a href="${esc(b.book_url||'#')}" target="_blank" rel="noopener"
-             class="btn-link btn-primary">🔗 رابط الكتاب</a>
-          <a href="https://scholar.google.com/scholar?q=${scholarQ}"
-             target="_blank" rel="noopener" class="btn-link btn-secondary">🎓 Scholar</a>
-        </div>
-        <div class="book-actions" style="margin-top:6px">
-          ${worldcat}
-          <a href="https://archive.org/search?query=${archiveQ}"
-             target="_blank" rel="noopener"
-             class="btn-link btn-secondary" style="flex:${worldcat?'1':'2'}">📦 Archive.org</a>
-        </div>
-      </div>
-    </div>`;
+      </div>`;
   }).join('');
 }
 
@@ -762,9 +906,7 @@ function esc(s) {
   return d.innerHTML;
 }
 
-/* ──────────────────────────────────────────
-   إحصائيات
-────────────────────────────────────────── */
+/* ─── إحصائيات ─── */
 function updateStats() {
   const cy = new Date().getFullYear();
   document.getElementById('totalCount').textContent = ALL_BOOKS.length;
@@ -778,14 +920,12 @@ function updateStats() {
 
 function updateLastTime() {
   document.getElementById('lastUpdate').textContent =
-    'آخر تحديث: ' + new Date().toLocaleString('ar-SA',{
+    'آخر تحديث: ' + new Date().toLocaleString('ar-SA', {
       year:'numeric',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'
     });
 }
 
-/* ──────────────────────────────────────────
-   قائمة المصادر
-────────────────────────────────────────── */
+/* ─── قائمة المصادر ─── */
 function toggleSources() {
   const el = document.getElementById('sourcesList');
   el.classList.toggle('open');
@@ -794,17 +934,13 @@ function toggleSources() {
   }
 }
 
-/* ──────────────────────────────────────────
-   تحديث يدوي
-────────────────────────────────────────── */
+/* ─── تحديث يدوي ─── */
 function manualRefresh() {
   localStorage.removeItem(CACHE_KEY);
   fetchAllBooks();
 }
 
-/* ──────────────────────────────────────────
-   نقطة البدء — كاش 24 ساعة
-────────────────────────────────────────── */
+/* ─── نقطة البدء — كاش 24 ساعة ─── */
 (async function init() {
   try {
     const cache = JSON.parse(localStorage.getItem(CACHE_KEY));
@@ -813,7 +949,6 @@ function manualRefresh() {
       updateStats();
       filterBooks();
       updateLastTime();
-      // جدولة التحديث القادم
       const remaining = CACHE_DURATION - (Date.now() - cache.timestamp);
       setTimeout(()=>fetchAllBooks(), remaining);
       return;
